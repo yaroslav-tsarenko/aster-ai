@@ -12,7 +12,7 @@ const Notification = ({ className, title }) => {
         src={notification1}
         width={62}
         height={62}
-        alt="image"
+        alt=""
         className="rounded-xl"
       />
 
@@ -31,7 +31,7 @@ const Notification = ({ className, title }) => {
                   className="w-full"
                   width={20}
                   height={20}
-                  alt={item}
+                  alt=""
                 />
               </li>
             ))}

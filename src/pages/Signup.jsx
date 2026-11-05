@@ -1,0 +1,157 @@
+import { useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import AuthLayout, { Divider, SocialButtons } from "../components/AuthLayout";
+import Button from "../components/Button";
+import Icon from "../components/ui/Icon";
+import Spinner from "../components/ui/Spinner";
+import { Checkbox, TextField } from "../components/ui/Field";
+import usePageMeta from "../hooks/usePageMeta";
+import useToast from "../hooks/useToast";
+import { isValidEmail, wait } from "../lib/utils";
+import { pricing } from "../constants";
+
+const strengthLabels = ["Too weak", "Weak", "Okay", "Strong", "Excellent"];
+const strengthColors = ["#FF776F", "#FF776F", "#FFC876", "#7ADB78", "#79FFF7"];
+
+const scorePassword = (pw) => {
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
+  if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
+  if (/\d/.test(pw) && /[^A-Za-z0-9]/.test(pw)) score++;
+  return Math.min(4, score);
+};
+
+const Signup = () => {
+  usePageMeta("Create account", "Create your free Brainwave account in seconds. No credit card required.");
+  const { toast } = useToast();
+  const [params] = useSearchParams();
+  const plan = pricing.find((p) => p.slug === params.get("plan")) || pricing[0];
+  const seats = Number(params.get("seats")) || null;
+
+  const [values, setValues] = useState({ name: "", email: "", password: "", terms: false });
+  const [errors, setErrors] = useState({});
+  const [state, setState] = useState("idle");
+  const strength = useMemo(() => scorePassword(values.password), [values.password]);
+
+  const set = (key) => (e) => {
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setValues((v) => ({ ...v, [key]: value }));
+    if (errors[key]) setErrors((er) => ({ ...er, [key]: undefined }));
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const next = {};
+    if (values.name.trim().length < 2) next.name = "Please enter your name.";
+    if (!isValidEmail(values.email)) next.email = "Please enter a valid email address.";
+    if (values.password.length < 8) next.password = "Use at least 8 characters.";
+    else if (strength < 2) next.password = "Add upper-case letters, numbers or symbols.";
+    if (!values.terms) next.terms = "You need to accept the terms to continue.";
+    setErrors(next);
+    if (Object.keys(next).length) return;
+    setState("loading");
+    await wait(1300);
+    setState("done");
+    toast("Your demo account is ready", { title: "Account created" });
+  };
+
+  if (state === "done") {
+    return (
+      <AuthLayout title={`Welcome, ${values.name.split(" ")[0]}!`} subtitle="Your account is ready. Here's what you can do next.">
+        <ul className="grid gap-3 mb-8 animate-pop-in">
+          {[
+            { icon: "chat", label: "Start your first conversation", to: "/app" },
+            { icon: "image", label: "Generate an image", to: "/how-to-use#studio" },
+            { icon: "link", label: "Connect an integration", to: "/integrations" },
+          ].map((s) => (
+            <li key={s.label}>
+              <Link to={s.to} className="group flex items-center gap-4 p-4 rounded-xl border border-n-6 transition-colors hover:border-color-1">
+                <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-n-7 text-color-1">
+                  <Icon name={s.icon} size={18} />
+                </span>
+                <span className="flex-1 text-sm">{s.label}</span>
+                <Icon name="arrowRight" size={16} className="text-n-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Button href="/app" white className="w-full">
+          Open Brainwave
+        </Button>
+      </AuthLayout>
+    );
+  }
+
+  return (
+    <AuthLayout
+      title="Create your account"
+      subtitle="Free forever. No credit card required."
+      footer={
+        <>
+          Already have an account?{" "}
+          <Link to="/login" className="text-n-1 underline transition-colors hover:text-color-1">
+            Sign in
+          </Link>
+        </>
+      }
+    >
+      <div className="flex items-center justify-between gap-3 mb-6 p-4 rounded-xl bg-n-7 border border-n-6">
+        <div>
+          <p className="tagline text-n-4">Selected plan</p>
+          <p className="font-semibold">
+            {plan.title}
+            {seats ? ` · ${seats} seats` : ""}
+          </p>
+        </div>
+        <Link to="/pricing" className="text-xs font-code uppercase tracking-wider text-color-1 transition-colors hover:text-n-1">
+          Change
+        </Link>
+      </div>
+
+      <SocialButtons />
+      <Divider label="or with email" />
+
+      <form onSubmit={onSubmit} noValidate className="grid gap-5">
+        <TextField label="Full name" autoComplete="name" value={values.name} onChange={set("name")} error={errors.name} />
+        <TextField label="Email" type="email" autoComplete="email" value={values.email} onChange={set("email")} error={errors.email} placeholder="you@company.com" />
+        <div>
+          <TextField label="Password" type="password" autoComplete="new-password" value={values.password} onChange={set("password")} error={errors.password} />
+          {values.password && (
+            <div className="mt-3" aria-live="polite">
+              <div className="flex gap-1.5 mb-1.5" aria-hidden="true">
+                {[0, 1, 2, 3].map((i) => (
+                  <span
+                    key={i}
+                    className="flex-1 h-1 rounded-full transition-colors duration-300"
+                    style={{ background: i < strength ? strengthColors[strength] : "#252134" }}
+                  />
+                ))}
+              </div>
+              <p className="text-xs" style={{ color: strengthColors[strength] }}>
+                Password strength: {strengthLabels[strength]}
+              </p>
+            </div>
+          )}
+        </div>
+        <Checkbox
+          checked={values.terms}
+          onChange={set("terms")}
+          error={errors.terms}
+          label={
+            <>
+              I agree to the <Link to="/terms" className="text-n-1 underline hover:text-color-1">Terms</Link> and{" "}
+              <Link to="/privacy" className="text-n-1 underline hover:text-color-1">Privacy policy</Link>.
+            </>
+          }
+        />
+        <Button type="submit" white className="w-full mt-2" disabled={state === "loading"}>
+          {state === "loading" && <Spinner />}
+          {state === "loading" ? "Creating account…" : "Create account"}
+        </Button>
+      </form>
+    </AuthLayout>
+  );
+};
+
+export default Signup;

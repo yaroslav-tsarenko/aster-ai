@@ -1,6 +1,7 @@
 const ButtonSvg = (white) => (
   <>
     <svg
+      aria-hidden="true"
       className="absolute top-0 left-0"
       width="21"
       height="44"
@@ -14,6 +15,7 @@ const ButtonSvg = (white) => (
       />
     </svg>
     <svg
+      aria-hidden="true"
       className="absolute top-0 left-[1.3125rem] w-[calc(100%-2.625rem)]"
       height="44"
       viewBox="0 0 100 44"
@@ -42,6 +44,7 @@ const ButtonSvg = (white) => (
       )}
     </svg>
     <svg
+      aria-hidden="true"
       className="absolute top-0 right-0"
       width="21"
       height="44"

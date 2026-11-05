@@ -1,0 +1,23 @@
+import { useEffect, useState } from "react";
+
+const QUERY = "(prefers-reduced-motion: reduce)";
+
+const getInitial = () =>
+  typeof window !== "undefined" && window.matchMedia
+    ? window.matchMedia(QUERY).matches
+    : false;
+
+const useReducedMotion = () => {
+  const [reduced, setReduced] = useState(getInitial);
+
+  useEffect(() => {
+    const mql = window.matchMedia(QUERY);
+    const onChange = () => setReduced(mql.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  return reduced;
+};
+
+export default useReducedMotion;

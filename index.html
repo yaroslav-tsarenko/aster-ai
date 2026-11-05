@@ -2,15 +2,46 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="./src/assets/brainwave-symbol.svg"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Brainwave - Your AI Assistant</title>
+    <meta
+      name="description"
+      content="Brainwave is the AI chat app that helps you write, code, design and create faster. Ask anything, generate images and collaborate across your favourite tools."
+    />
+    <meta name="theme-color" content="#0E0C15" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Brainwave" />
+    <meta property="og:title" content="Brainwave - Your AI Assistant" />
+    <meta
+      property="og:description"
+      content="Explore the possibilities of AI chatting with Brainwave. Ask anything, generate images and connect your favourite tools."
+    />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Brainwave - Your AI Assistant" />
+    <meta
+      name="twitter:description"
+      content="Explore the possibilities of AI chatting with Brainwave. Ask anything, generate images and connect your favourite tools."
+    />
+    <meta name="twitter:image" content="/og-image.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
+    <noscript>
+      <p style="padding: 2rem; font-family: sans-serif; color: #fff; background: #0e0c15">
+        Brainwave needs JavaScript enabled to run.
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

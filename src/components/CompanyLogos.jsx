@@ -3,16 +3,16 @@ import { companyLogos } from "../constants";
 const CompanyLogos = ({ className }) => {
   return (
     <div className={className}>
-      <h5 className="tagline mb-6 text-center text-n-1/50">
+      <h2 className="tagline mb-6 text-center text-n-1/50">
         Helping people create beautiful content at
-      </h5>
+      </h2>
       <ul className="flex">
         {companyLogos.map((logo, index) => (
           <li
-            className="flex items-center justify-center flex-1 h-[8.5rem]"
+            className="flex items-center justify-center flex-1 h-[8.5rem] opacity-70 transition-opacity hover:opacity-100"
             key={index}
           >
-            <img src={logo} width={134} height={28} alt={logo} />
+            <img src={logo} width={134} height={28} alt={`Customer logo ${index + 1}`} loading="lazy" />
           </li>
         ))}
       </ul>

@@ -7,9 +7,10 @@ const Section = ({
   crossesOffset,
   customPaddings,
   children,
+  as: Tag = "section",
 }) => {
   return (
-    <div
+    <Tag
       id={id}
       className={`
       relative 
@@ -29,12 +30,12 @@ const Section = ({
           <div
             className={`hidden absolute top-0 left-7.5 right-7.5 h-0.25 bg-stroke-1 ${
               crossesOffset && crossesOffset
-            } pointer-events-none lg:block xl:left-10 right-10`}
+            } pointer-events-none lg:block xl:left-10 xl:right-10`}
           />
           <SectionSvg crossesOffset={crossesOffset} />
         </>
       )}
-    </div>
+    </Tag>
   );
 };
 

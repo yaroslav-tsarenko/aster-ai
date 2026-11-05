@@ -10,6 +10,8 @@ import {
 } from "./design/Services";
 
 import Generating from "./Generating";
+import Button from "./Button";
+import Reveal from "./ui/Reveal";
 
 const Services = () => {
   return (
@@ -26,9 +28,10 @@ const Services = () => {
               <img
                 className="w-full h-full object-cover md:object-right"
                 width={800}
-                alt="Smartest AI"
+                alt="Robot assistant illustration"
                 height={730}
                 src={service1}
+                loading="lazy"
               />
             </div>
 
@@ -43,14 +46,14 @@ const Services = () => {
                     key={index}
                     className="flex items-start py-4 border-t border-n-6"
                   >
-                    <img width={24} height={24} src={check} />
+                    <img width={24} height={24} src={check} alt="" />
                     <p className="ml-4">{item}</p>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <Generating className="absolute left-4 right-4 bottom-4 border-n-1/10 border lg:left-1/2 lg-right-auto lg:bottom-8 lg:-translate-x-1/2" />
+            <Generating cycle className="absolute left-4 right-4 bottom-4 border-n-1/10 border lg:left-1/2 lg:right-auto lg:bottom-8 lg:-translate-x-1/2" />
           </div>
 
           <div className="relative z-1 grid gap-5 lg:grid-cols-2">
@@ -61,7 +64,8 @@ const Services = () => {
                   className="h-full w-full object-cover"
                   width={630}
                   height={750}
-                  alt="robot"
+                  alt="Robot portrait before AI photo enhancement"
+                  loading="lazy"
                 />
               </div>
 
@@ -101,7 +105,7 @@ const Services = () => {
                             : ""
                         }
                       >
-                        <img src={item} width={24} height={24} alt={item} />
+                        <img src={item.icon} width={24} height={24} alt={item.title} />
                       </div>
                     </li>
                   ))}
@@ -114,7 +118,8 @@ const Services = () => {
                   className="w-full h-full object-cover"
                   width={520}
                   height={400}
-                  alt="Scary robot"
+                  alt="AI generated robot video frame"
+                  loading="lazy"
                 />
 
                 <VideoChatMessage />
@@ -125,6 +130,13 @@ const Services = () => {
 
           <Gradient />
         </div>
+
+        <Reveal className="flex flex-col items-center justify-center gap-5 mt-12 sm:flex-row md:mt-15">
+          <Button href="/how-to-use">Take the product tour</Button>
+          <Button href="/how-to-use#studio" white>
+            Try the image studio
+          </Button>
+        </Reveal>
       </div>
     </Section>
   );

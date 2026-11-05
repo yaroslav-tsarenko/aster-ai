@@ -8,6 +8,7 @@ import { useRef } from "react";
 import Generating from "./Generating";
 import Notification from "./Notification";
 import CompanyLogos from "./CompanyLogos";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const parallaxRef = useRef(null);
@@ -31,7 +32,7 @@ const Hero = () => {
                 className="absolute top-full left-0 w-full xl:-mt-2"
                 width={624}
                 height={28}
-                alt="Curve"
+                alt=""
               />
             </span>
           </h1>
@@ -39,9 +40,17 @@ const Hero = () => {
             Unleash the power of AI within Brainwave. Upgrade your productivity
             with Brainwave, the open AI chat app.
           </p>
-          <Button href="#" white>
-            Get started
-          </Button>
+          <div className="flex flex-col items-center justify-center gap-5 sm:flex-row">
+            <Button href="/signup" white>
+              Get started
+            </Button>
+            <Link
+              to="#demo"
+              className="button text-n-1/60 border-b border-n-1/20 pb-0.5 transition-colors hover:text-n-1 hover:border-color-1"
+            >
+              Try the live demo
+            </Link>
+          </div>
         </div>
         <div className="relative max-w-[23rem] mx-auto md:max-w-5xl xl:mb-24">
           <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient">
@@ -54,16 +63,23 @@ const Hero = () => {
                   className="w-full scale-[1.7] translate-y-[8%] md:scale-[1] md:-translate-y-[10%] lg:-translate-y-[23%]"
                   width={1024}
                   height={490}
-                  alt="AI"
+                  alt="Brainwave AI assistant robot"
                 />
 
-                <Generating className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" />
+                <Generating cycle className="absolute left-4 right-4 bottom-5 md:left-1/2 md:right-auto md:bottom-8 md:w-[31rem] md:-translate-x-1/2" />
 
                 <ScrollParallax isAbsolutelyPositioned>
                   <ul className="hidden absolute -left-[5.5rem] bottom-[7.5rem] px-1 py-1 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl xl:flex">
-                    {heroIcons.map((icon, index) => (
-                      <li className="p-5" key={index}>
-                        <img src={icon} width={24} height={25} alt={icon} />
+                    {heroIcons.map((item) => (
+                      <li key={item.title}>
+                        <Link
+                          to={item.url}
+                          className="block p-5 rounded-xl transition-colors hover:bg-n-1/10"
+                          aria-label={item.title}
+                          title={item.title}
+                        >
+                          <img src={item.icon} width={24} height={25} alt="" />
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -86,7 +102,7 @@ const Hero = () => {
               className="w-full"
               width={1440}
               height={1800}
-              alt="hero"
+              alt=""
             />
           </div>
 

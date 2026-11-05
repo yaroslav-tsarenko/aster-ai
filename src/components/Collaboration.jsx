@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { brainwaveSymbol, check } from "../assets";
+import Reveal from "./ui/Reveal";
 import { collabApps, collabContent, collabText } from "../constants";
 import Button from "./Button";
 import Section from "./Section";
@@ -6,9 +8,9 @@ import { LeftCurve, RightCurve } from "./design/Collaboration";
 
 const Collaboration = () => {
   return (
-    <Section crosses>
+    <Section crosses id="collaboration">
       <div className="container lg:flex">
-        <div className="max-w-[25rem]">
+        <Reveal className="max-w-[25rem]">
           <h2 className="h2 mb-4 md:mb-8">
             AI Chat App for seamless collaboration
           </h2>
@@ -17,7 +19,7 @@ const Collaboration = () => {
             {collabContent.map((item) => (
               <li className="mb-3 py-3" key={item.id}>
                 <div className="flex items-center">
-                  <img src={check} width={24} height={24} alt="check" />
+                  <img src={check} width={24} height={24} alt="" />
                   <h6 className="body-2 ml-5">{item.title}</h6>
                 </div>
                 {item.text && (
@@ -27,15 +29,15 @@ const Collaboration = () => {
             ))}
           </ul>
 
-          <Button>Try it now</Button>
-        </div>
+          <Button href="/integrations">Try it now</Button>
+        </Reveal>
 
         <div className="lg:ml-auto xl:w-[38rem] mt-4">
           <p className="body-2 mb-8 text-n-4 md:mb-16 lg:mb-32 lg:w-[22rem] lg:mx-auto">
             {collabText}
           </p>
 
-          <div className="relative left-1/2 flex w-[22rem] aspect-square border border-n-6 rounded-full -translate-x-1/2 scale:75 md:scale-100">
+          <div className="relative left-1/2 flex w-[22rem] aspect-square border border-n-6 rounded-full -translate-x-1/2 scale-90 md:scale-100">
             <div className="flex w-60 aspect-square m-auto border border-n-6 rounded-full">
               <div className="w-[6rem] aspect-square m-auto p-[0.2rem] bg-conic-gradient rounded-full">
                 <div className="flex items-center justify-center w-full h-full bg-n-8 rounded-full">
@@ -43,7 +45,8 @@ const Collaboration = () => {
                     src={brainwaveSymbol}
                     width={48}
                     height={48}
-                    alt="brainwave"
+                    alt="Brainwave"
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -57,8 +60,11 @@ const Collaboration = () => {
                     index * 45
                   }`}
                 >
-                  <div
-                    className={`relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-n-7 border border-n-1/15 rounded-xl -rotate-${
+                  <Link
+                    to={`/integrations/${app.slug}`}
+                    title={app.title}
+                    aria-label={`${app.title} integration`}
+                    className={`relative -top-[1.6rem] flex w-[3.2rem] h-[3.2rem] bg-n-7 border border-n-1/15 rounded-xl transition-[border-color,background-color,box-shadow] hover:border-color-1 hover:bg-n-6 hover:shadow-[0_0_1.5rem_rgba(172,106,255,0.45)] -rotate-${
                       index * 45
                     }`}
                   >
@@ -66,10 +72,11 @@ const Collaboration = () => {
                       className="m-auto"
                       width={app.width}
                       height={app.height}
-                      alt={app.title}
+                      alt=""
+                      loading="lazy"
                       src={app.icon}
                     />
-                  </div>
+                  </Link>
                 </li>
               ))}
             </ul>

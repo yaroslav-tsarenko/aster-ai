@@ -9,7 +9,7 @@ export const Gradient = () => {
         src={gradient}
         width={1417}
         height={1417}
-        alt="Gradient"
+        alt=""
       />
     </div>
   );
@@ -33,7 +33,7 @@ export const VideoChatMessage = () => {
           src={brainwaveWhiteSymbol}
           width={26}
           height={26}
-          alt="Brainwave"
+          alt=""
         />
       </div>
       <p className="tagline absolute right-2.5 bottom-1 text-[0.625rem] text-n-3 uppercase">
@@ -54,7 +54,7 @@ export const VideoBar = () => {
         src={play}
         width={24}
         height={24}
-        alt="Play"
+        alt=""
         className="object-contain mr-3"
       />
 
