@@ -199,6 +199,12 @@ select:focus-visible {
   border: 0.25rem solid #0e0f11;
 }
 
+/* Tour progress bar ------------------------------------------------ */
+@keyframes progress-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
 /* Reduced motion --------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *,

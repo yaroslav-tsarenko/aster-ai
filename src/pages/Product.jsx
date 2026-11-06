@@ -117,7 +117,6 @@ const Tour = () => {
         </div>
         <p className="mt-4 font-mono text-xs text-fg-3">{step.tip}</p>
       </div>
-      <style>{`@keyframes progress-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }`}</style>
     </div>
   );
 };

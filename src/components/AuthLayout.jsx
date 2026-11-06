@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import useToast from "../hooks/useToast";
 import AppFrame from "./product/AppFrame";
-import { ChatMock } from "./product/Mocks";
+import { ChatMock, Cite } from "./product/Mocks";
+import Icon from "./ui/Icon";
 import Avatar from "./brand/Avatar";
 
 export const SocialButtons = () => {
@@ -52,6 +53,32 @@ export const Divider = ({ label = "or" }) => (
   </div>
 );
 
+const cited = [
+  ["1", "Tree canopy and street heat.pdf", "p. 14", "Exact quote"],
+  ["3", "Cool roof retrofit study.pdf", "p. 6", "Exact quote"],
+  ["2", "climate-adapt.eu/case-study", "Link", "Summary"],
+];
+
+const CitedSources = () => (
+  <div className="px-5 pb-5">
+    <div className="flex items-center justify-between mb-2">
+      <p className="t-label text-fg-3">Cited in this answer</p>
+      <span className="font-mono text-2xs text-fg-4">3 of 12 sources</span>
+    </div>
+    <ul className="divide-y divide-line border-y border-line">
+      {cited.map(([n, name, loc, kind]) => (
+        <li key={n} className="flex items-center gap-3 py-2.5">
+          <Cite n={n} />
+          <Icon name={loc === "Link" ? "globe" : "file"} size={14} className="text-fg-4 shrink-0" />
+          <span className="flex-1 min-w-0 text-[0.8125rem] text-fg-2 truncate">{name}</span>
+          <span className="font-mono text-2xs text-fg-4">{loc}</span>
+          <span className="hidden xl:block font-mono text-2xs text-fg-3">{kind}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
 const AuthLayout = ({ title, subtitle, children, footer }) => (
   <section className="border-b border-line">
     <div className="container grid-12 gap-y-12 py-14 md:py-20 lg:py-24">
@@ -73,7 +100,20 @@ const AuthLayout = ({ title, subtitle, children, footer }) => (
       <aside className="hidden lg:flex flex-col col-span-6 col-start-7 p-8 rounded-xl border border-line bg-surface bg-dotgrid" aria-label="About Aster">
         <AppFrame title="aster.app / Urban heat brief">
           <ChatMock />
+          <CitedSources />
         </AppFrame>
+        <dl className="grid grid-cols-3 gap-px mt-4 rounded-lg border border-line bg-line overflow-hidden">
+          {[
+            ["12", "Sources read"],
+            ["3", "Cited"],
+            ["0", "Unsupported claims"],
+          ].map(([v, l]) => (
+            <div key={l} className="px-4 py-3 bg-surface">
+              <dd className="font-mono text-lg text-fg">{v}</dd>
+              <dt className="mt-0.5 text-xs text-fg-3">{l}</dt>
+            </div>
+          ))}
+        </dl>
         <figure className="mt-auto pt-10">
           <blockquote className="t-lead text-fg">
             “I can hand a brief to a colleague and they can check every line in a minute instead of an afternoon.”
