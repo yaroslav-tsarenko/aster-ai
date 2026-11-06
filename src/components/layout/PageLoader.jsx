@@ -1,13 +1,11 @@
-import { brainwaveSymbol } from "../../assets";
+import { LogoMark } from "../brand/Logo";
 
 const PageLoader = ({ className = "min-h-[70vh]" }) => (
-  <div className={`flex items-center justify-center ${className}`} role="status" aria-label="Loading page">
-    <div className="relative w-16 h-16">
-      <div className="absolute inset-0 rounded-full bg-conic-gradient animate-spin-slow" />
-      <div className="absolute inset-0.5 flex items-center justify-center rounded-full bg-n-8">
-        <img src={brainwaveSymbol} width={28} height={28} alt="" className="animate-pulse" />
-      </div>
-    </div>
+  <div className={`flex flex-col items-center justify-center gap-4 ${className}`} role="status" aria-label="Loading page">
+    <LogoMark size={28} className="animate-pulse" />
+    <span className="block w-24 h-px overflow-hidden bg-line">
+      <span className="block h-full w-1/3 bg-fg-3 animate-[marquee_1.2s_linear_infinite]" />
+    </span>
   </div>
 );
 

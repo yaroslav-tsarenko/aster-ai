@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
 import ChatComposer from "./ChatComposer";
 import Icon from "../ui/Icon";
-import { brainwaveSymbol } from "../../assets";
+import { LogoMark } from "../brand/Logo";
 
 /**
  * Message list + composer. Purely presentational; pass a `chat` object from useMockChat.
@@ -12,8 +12,8 @@ const ChatWindow = ({
   prompts = [],
   className = "",
   listClassName = "",
-  emptyTitle = "How can I help you today?",
-  emptyText = "Type a message or pick one of the suggestions below.",
+  emptyTitle = "Ask about your sources",
+  emptyText = "Type a question or pick a suggestion. Answers in this demo are prepared in advance.",
   compact = false,
   showTools = true,
   composerRef,
@@ -52,16 +52,12 @@ const ChatWindow = ({
           emptyContent(handleSend)
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full py-8 text-center">
-            <div className="w-16 h-16 p-0.5 mb-5 rounded-2xl bg-conic-gradient">
-              <div className="flex items-center justify-center w-full h-full bg-n-8 rounded-[0.9rem]">
-                <img src={brainwaveSymbol} width={32} height={32} alt="" />
-              </div>
-            </div>
-            <h3 className="h6 mb-2">{emptyTitle}</h3>
-            <p className="body-2 text-n-4 max-w-sm">{emptyText}</p>
+            <LogoMark size={32} className="mb-5" />
+            <h3 className="t-h4 mb-2">{emptyTitle}</h3>
+            <p className="t-small text-fg-3 max-w-sm">{emptyText}</p>
           </div>
         ) : (
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-7">
             {messages.map((m) => (
               <ChatMessage
                 key={m.id}
@@ -84,9 +80,9 @@ const ChatWindow = ({
                 type="button"
                 disabled={isBusy}
                 onClick={() => handleSend(p)}
-                className="group inline-flex items-center gap-2 shrink-0 px-3.5 py-2 rounded-full border border-n-6 bg-n-8/60 text-xs text-n-3 transition-colors hover:border-color-1 hover:text-n-1 disabled:opacity-50 disabled:pointer-events-none"
+                className="group inline-flex items-center gap-1.5 shrink-0 h-8 px-3 rounded-md border border-line bg-bg text-xs text-fg-2 transition-colors hover:border-line-strong hover:text-fg disabled:opacity-50 disabled:pointer-events-none"
               >
-                <Icon name="sparkle" size={14} className="text-color-1" />
+                <Icon name="arrowUpRight" size={13} className="text-fg-4 group-hover:text-accent" />
                 {p}
               </button>
             ))}

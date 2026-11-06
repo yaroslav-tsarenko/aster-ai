@@ -5,6 +5,8 @@ import Breadcrumbs from "../components/ui/Breadcrumbs";
 import Reveal from "../components/ui/Reveal";
 import Icon from "../components/ui/Icon";
 import NewsletterForm from "../components/NewsletterForm";
+import Artwork from "../components/brand/Artwork";
+import Avatar from "../components/brand/Avatar";
 import { PostCard } from "./Blog";
 import { blogPosts } from "../constants";
 import usePageMeta from "../hooks/usePageMeta";
@@ -26,8 +28,8 @@ const ReadingProgress = () => {
   }, []);
 
   return (
-    <div className="fixed top-[4.75rem] left-0 right-0 z-40 h-0.5 lg:top-[5.25rem]" aria-hidden="true">
-      <div className="h-full bg-conic-gradient origin-left" style={{ transform: `scaleX(${progress / 100})` }} />
+    <div className="fixed top-16 left-0 right-0 z-40 h-px" aria-hidden="true">
+      <div className="h-full bg-accent origin-left" style={{ transform: `scaleX(${progress / 100})` }} />
     </div>
   );
 };
@@ -35,27 +37,25 @@ const ReadingProgress = () => {
 const Block = ({ block }) => {
   switch (block.type) {
     case "h2":
-      return <h2 className="h4 mt-12 mb-4">{block.text}</h2>;
+      return <h2 className="t-h3 mt-12 mb-4">{block.text}</h2>;
     case "quote":
-      return (
-        <blockquote className="my-10 pl-6 border-l-2 border-color-1 quote text-n-1">“{block.text}”</blockquote>
-      );
+      return <blockquote className="my-10 pl-5 border-l-2 border-accent text-xl leading-8 tracking-[-0.01em] text-fg">{block.text}</blockquote>;
     case "list":
       return (
-        <ul className="my-6 space-y-3 pl-5 list-disc marker:text-color-1">
+        <ul className="my-6 space-y-2.5 pl-5 list-disc marker:text-fg-4">
           {block.items.map((i) => (
-            <li key={i} className="body-2 text-n-2">{i}</li>
+            <li key={i} className="t-body text-fg-2">{i}</li>
           ))}
         </ul>
       );
     case "code":
       return (
-        <pre className="my-6 p-5 overflow-x-auto scrollbar-thin rounded-2xl bg-n-7 border border-n-6 font-code text-sm leading-6 text-color-2">
+        <pre className="my-6 p-4 overflow-x-auto scrollbar-thin rounded-md bg-surface border border-line font-mono text-[0.8125rem] leading-6 text-fg-2">
           <code>{block.text}</code>
         </pre>
       );
     default:
-      return <p className="body-1 mb-6 text-n-3">{block.text}</p>;
+      return <p className="t-body mb-6 text-fg-2 md:text-[1.0625rem] md:leading-8">{block.text}</p>;
   }
 };
 
@@ -72,14 +72,14 @@ const BlogPost = () => {
 
   const copyLink = async () => {
     const ok = await copyToClipboard(shareUrl);
-    toast(ok ? "Link copied to clipboard" : "Couldn't copy the link", { tone: ok ? "success" : "error" });
+    toast(ok ? "Link copied to clipboard" : "Could not copy the link", { tone: ok ? "success" : "error" });
   };
 
   return (
     <>
       <ReadingProgress />
-      <Section crosses customPaddings className="pt-12 pb-12 md:pt-20 lg:pt-24">
-        <div className="container max-w-4xl relative z-2">
+      <section className="pt-14 pb-12 md:pt-20 md:pb-16">
+        <div className="container">
           <Breadcrumbs
             className="mb-10"
             items={[
@@ -88,78 +88,96 @@ const BlogPost = () => {
               { label: post.category },
             ]}
           />
-          <Reveal>
-            <span className="inline-block mb-5 px-3 py-1 rounded-full bg-n-7 tagline text-color-1">{post.category}</span>
-            <h1 className="h1 mb-8">{post.title}</h1>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-n-4">
-              <img src={post.author.avatar} alt="" width={44} height={44} className="w-11 h-11 rounded-full object-cover" />
-              <div>
-                <p className="text-n-1">{post.author.name}</p>
-                <p className="text-xs">{post.author.role}</p>
-              </div>
-              <span className="hidden sm:block w-px h-8 bg-n-6" />
-              <time>{post.date}</time>
-              <span>·</span>
-              <span>{post.readTime}</span>
+          <Reveal className="grid-12 gap-y-8">
+            <div className="col-span-4 md:col-span-8 lg:col-span-9">
+              <p className="t-label mb-5 text-fg-3">{post.category} / {post.readTime}</p>
+              <h1 className="t-h1">{post.title}</h1>
+              <p className="t-lead max-w-2xl mt-6">{post.excerpt}</p>
             </div>
           </Reveal>
-        </div>
-      </Section>
-
-      <div className="container max-w-5xl">
-        <Reveal className="p-0.5 rounded-3xl bg-conic-gradient">
-          <div className="aspect-[16/9] rounded-[1.4rem] overflow-hidden bg-n-8">
-            <img src={post.cover} alt="" className="w-full h-full object-cover" />
+          <div className="flex flex-wrap items-center gap-4 mt-10 pt-6 border-t border-line text-sm">
+            <Avatar name={post.author.name} size={36} />
+            <div>
+              <p className="text-fg">{post.author.name}</p>
+              <p className="text-xs text-fg-3">{post.author.role}</p>
+            </div>
+            <time className="ml-auto font-mono text-xs text-fg-3">{post.date}</time>
           </div>
+        </div>
+      </section>
+
+      <div className="container">
+        <Reveal className="aspect-[16/9] overflow-hidden rounded-xl border border-line md:aspect-[21/9]">
+          <Artwork scene={post.cover.scene} palette={post.cover.style} seed={post.cover.seed} />
         </Reveal>
       </div>
 
-      <Section>
-        <article className="container max-w-3xl">
-          {post.body.map((block, i) => (
-            <Block key={i} block={block} />
-          ))}
-
-          <div className="flex flex-wrap items-center justify-between gap-4 mt-16 pt-8 border-t border-n-6">
-            <Link to="/blog" className="inline-flex items-center gap-2 button text-n-3 transition-colors hover:text-n-1">
-              <Icon name="chevronLeft" size={16} /> All articles
-            </Link>
-            <div className="flex items-center gap-2">
-              <span className="mr-2 text-sm text-n-4">Share</span>
+      <section className="py-16 md:py-20">
+        <div className="container grid-12">
+          <aside className="hidden lg:block lg:col-span-3">
+            <div className="sticky top-28 space-y-3">
+              <p className="t-label text-fg-4">Share</p>
               <button
                 type="button"
                 onClick={copyLink}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-n-7 text-n-3 transition-colors hover:bg-n-6 hover:text-n-1"
-                aria-label="Copy link to this article"
+                className="flex items-center gap-2 text-sm text-fg-3 transition-colors hover:text-fg"
               >
-                <Icon name="link" size={18} />
+                <Icon name="link" size={15} /> Copy link
               </button>
               <a
                 href={`https://x.com/intent/post?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-n-7 text-n-3 transition-colors hover:bg-n-6 hover:text-n-1"
+                className="flex items-center gap-2 text-sm text-fg-3 transition-colors hover:text-fg"
                 aria-label="Share on X (opens in a new tab)"
               >
-                <Icon name="external" size={18} />
+                <Icon name="external" size={15} /> Post on X
               </a>
             </div>
-          </div>
-        </article>
-      </Section>
+          </aside>
+          <article className="col-span-4 md:col-span-8 lg:col-span-7">
+            {post.body.map((block, i) => (
+              <Block key={i} block={block} />
+            ))}
 
-      <Section crosses>
+            <div className="flex flex-wrap items-center justify-between gap-4 mt-16 pt-6 border-t border-line">
+              <Link to="/blog" className="inline-flex items-center gap-1.5 text-sm text-fg-2 transition-colors hover:text-fg">
+                <Icon name="chevronLeft" size={15} /> All articles
+              </Link>
+              <button
+                type="button"
+                onClick={copyLink}
+                className="inline-flex items-center gap-1.5 text-sm text-fg-3 transition-colors hover:text-fg lg:hidden"
+                aria-label="Copy link to this article"
+              >
+                <Icon name="link" size={15} /> Copy link
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <Section>
         <div className="container">
-          <h2 className="h3 mb-12">Keep reading</h2>
-          <ul className="grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+          <div className="flex items-end justify-between gap-4 mb-10">
+            <h2 className="t-h2">Keep reading</h2>
+            <Link to="/blog" className="hidden sm:inline-flex items-center gap-1.5 text-sm text-fg-2 hover:text-fg">
+              All articles <Icon name="arrowRight" size={14} />
+            </Link>
+          </div>
+          <ul className="grid gap-x-6 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
             {related.map((p, i) => (
               <PostCard key={p.slug} post={p} index={i} />
             ))}
           </ul>
-          <div className="max-w-xl mx-auto mt-24 text-center">
-            <h2 className="h5 mb-3">Enjoyed this article?</h2>
-            <p className="body-2 mb-6 text-n-4">Get new posts delivered to your inbox once a month.</p>
-            <NewsletterForm />
+          <div className="grid-12 gap-y-6 items-end mt-20 pt-10 border-t border-line">
+            <div className="col-span-4 md:col-span-8 lg:col-span-6">
+              <h2 className="t-h3 mb-2">New posts, once a month</h2>
+              <p className="t-small text-fg-3">No product announcements dressed up as articles.</p>
+            </div>
+            <div className="col-span-4 md:col-span-6 lg:col-span-5 lg:col-start-8">
+              <NewsletterForm />
+            </div>
           </div>
         </div>
       </Section>

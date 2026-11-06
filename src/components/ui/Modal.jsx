@@ -54,7 +54,7 @@ const Modal = ({ open, onClose, title, children, className = "max-w-lg", labelle
   return createPortal(
     <div className={`fixed inset-0 z-[60] flex justify-center p-4 ${position === "top" ? "items-start pt-[12vh]" : "items-end sm:items-center"}`}>
       <div
-        className="absolute inset-0 bg-n-8/80 backdrop-blur-sm animate-fade-in"
+        className="absolute inset-0 bg-black/70 animate-fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -65,13 +65,13 @@ const Modal = ({ open, onClose, title, children, className = "max-w-lg", labelle
         aria-labelledby={labelledBy}
         aria-label={labelledBy ? undefined : title}
         tabIndex={-1}
-        className={`relative w-full ${className} max-h-[90vh] overflow-y-auto scrollbar-thin p-0.25 rounded-3xl bg-conic-gradient animate-pop-in`}
+        className={`relative w-full ${className} max-h-[90vh] overflow-y-auto scrollbar-thin bg-surface border border-line-strong rounded-xl shadow-[0_24px_64px_rgba(0,0,0,0.5)] animate-pop-in`}
       >
-        <div className="relative bg-n-8 rounded-[1.4375rem]">
+        <div className="relative">
           {!hideClose && <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-n-7 text-n-3 transition-colors hover:text-n-1 hover:bg-n-6"
+            className="absolute top-4 right-4 z-10 flex items-center justify-center w-8 h-8 rounded-md text-fg-3 transition-colors hover:text-fg hover:bg-raised"
             aria-label="Close dialog"
           >
             <Icon name="close" size={18} />

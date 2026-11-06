@@ -7,10 +7,8 @@ import CtaBanner from "../components/CtaBanner";
 import Button from "../components/Button";
 import Reveal from "../components/ui/Reveal";
 import Counter from "../components/ui/Counter";
-import GradientCard from "../components/ui/GradientCard";
 import Icon from "../components/ui/Icon";
-import { BenefitCard } from "../components/Benefits";
-import ClipPath from "../assets/svg/ClipPath";
+import { FeatureCell } from "../components/home/FeatureGrid";
 import { benefits, suggestedPrompts } from "../constants";
 import usePageMeta from "../hooks/usePageMeta";
 import NotFound from "./NotFound";
@@ -32,54 +30,65 @@ const FeatureDetail = () => {
   return (
     <>
       <PageHero
-        tag={feature.tagline}
+        label={`${String(index + 1).padStart(2, "0")} / ${feature.tagline}`}
         title={feature.title}
         text={feature.long}
         breadcrumbs={[
           { label: "Home", to: "/" },
-          { label: "Features", to: "/features" },
+          { label: "Product", to: "/features" },
           { label: feature.title },
         ]}
+        aside={
+          <dl className="grid grid-cols-2 border-t border-l border-line">
+            {feature.stats.map((s) => (
+              <div key={s.label} className="p-5 border-r border-b border-line">
+                <dd className="mb-2 font-mono text-2xl font-medium tracking-[-0.03em] md:text-3xl">
+                  <Counter value={s.value} decimals={s.decimals ?? (Number.isInteger(s.value) ? 0 : 1)} suffix={s.suffix} />
+                </dd>
+                <dt className="text-xs leading-5 text-fg-3">{s.label}</dt>
+              </div>
+            ))}
+          </dl>
+        }
       >
-        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Button href="/signup" white>
+        <div className="flex flex-wrap gap-3">
+          <Button href="/signup" variant="primary" size="lg">
             Try it free
           </Button>
-          <Button href="#demo">See it in action</Button>
+          <Button href="#demo" variant="secondary" size="lg">
+            See it in action
+          </Button>
         </div>
       </PageHero>
 
-      <Section crosses>
+      <Section>
         <div className="container">
-          <div className="grid gap-6 md:grid-cols-3">
+          <Heading label="What it does" title={`${feature.title}, in detail`} />
+          <div className="grid border-t border-l border-line md:grid-cols-3">
             {feature.highlights.map((h, i) => (
-              <Reveal key={h.title} delay={i * 100}>
-                <GradientCard muted={i !== 1} className="h-full" innerClassName="p-8">
-                  <div className="flex items-center justify-center w-12 h-12 mb-6 rounded-xl bg-n-7">
-                    <img src={feature.iconUrl} width={28} height={28} alt="" />
-                  </div>
-                  <h2 className="h6 mb-3">{h.title}</h2>
-                  <p className="body-2 text-n-4">{h.text}</p>
-                </GradientCard>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-2 gap-6 mt-12 lg:mt-20">
-            {feature.stats.map((s) => (
-              <Reveal key={s.label} className="p-8 text-center border border-n-6 rounded-3xl">
-                <Counter value={s.value} decimals={Number.isInteger(s.value) ? 0 : 1} suffix={s.suffix} className="block h2 mb-2 text-gradient" />
-                <p className="tagline text-n-4">{s.label}</p>
+              <Reveal key={h.title} delay={i * 60} className="p-6 border-r border-b border-line lg:p-8">
+                <div className="flex items-center justify-between mb-10">
+                  <span className="flex items-center justify-center w-9 h-9 rounded-md border border-line-strong text-fg-2">
+                    <Icon name={feature.icon} size={17} />
+                  </span>
+                  <span className="font-mono text-2xs text-fg-4">{String(i + 1).padStart(2, "0")}</span>
+                </div>
+                <h2 className="t-h4 mb-2">{h.title}</h2>
+                <p className="t-small text-fg-3">{h.text}</p>
               </Reveal>
             ))}
           </div>
         </div>
       </Section>
 
-      <Section crosses id="demo">
+      <Section id="demo">
         <div className="container">
-          <Heading tag="Try it" title={`${feature.title}, live`} text="Start with the suggested prompt for this feature, or ask your own question." />
-          <Reveal className="max-w-4xl mx-auto">
+          <Heading
+            label="Try it"
+            title="Start with the prompt for this feature"
+            text="Or type your own question. Answers in this demo are prepared in advance and run in your browser."
+          />
+          <Reveal className="lg:w-3/4">
             <ChatDemo prompts={prompts} />
           </Reveal>
         </div>
@@ -87,30 +96,35 @@ const FeatureDetail = () => {
 
       <Section>
         <div className="container">
-          <nav aria-label="Feature navigation" className="grid gap-4 mb-20 sm:grid-cols-2">
-            <Link to={`/features/${prev.slug}`} className="group flex items-center gap-4 p-6 border border-n-6 rounded-2xl transition-colors hover:border-color-1">
-              <Icon name="chevronLeft" size={20} className="text-n-4 transition-transform group-hover:-translate-x-1" />
-              <div>
-                <p className="tagline text-n-4">Previous</p>
-                <p className="h6">{prev.title}</p>
-              </div>
+          <nav aria-label="Feature navigation" className="grid mb-20 border-t border-l border-line sm:grid-cols-2">
+            <Link
+              to={`/features/${prev.slug}`}
+              className="group flex items-center gap-4 p-6 border-r border-b border-line transition-colors hover:bg-surface"
+            >
+              <Icon name="arrowRight" size={16} className="rotate-180 text-fg-3 transition-transform group-hover:-translate-x-0.5" />
+              <span>
+                <span className="block t-label mb-1 text-fg-4">Previous</span>
+                <span className="block t-h4">{prev.title}</span>
+              </span>
             </Link>
-            <Link to={`/features/${next.slug}`} className="group flex items-center justify-end gap-4 p-6 text-right border border-n-6 rounded-2xl transition-colors hover:border-color-1">
-              <div>
-                <p className="tagline text-n-4">Next</p>
-                <p className="h6">{next.title}</p>
-              </div>
-              <Icon name="chevronRight" size={20} className="text-n-4 transition-transform group-hover:translate-x-1" />
+            <Link
+              to={`/features/${next.slug}`}
+              className="group flex items-center justify-end gap-4 p-6 text-right border-r border-b border-line transition-colors hover:bg-surface"
+            >
+              <span>
+                <span className="block t-label mb-1 text-fg-4">Next</span>
+                <span className="block t-h4">{next.title}</span>
+              </span>
+              <Icon name="arrowRight" size={16} className="text-fg-3 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </nav>
 
-          <h2 className="h4 mb-10 text-center">More features</h2>
-          <div className="flex flex-wrap justify-center gap-10">
-            {others.map((item, i) => (
-              <BenefitCard key={item.id} item={item} index={i} />
+          <h2 className="t-h3 mb-8">More of what Aster does</h2>
+          <div className="grid border-t border-l border-line md:grid-cols-3">
+            {others.map((item) => (
+              <FeatureCell key={item.id} item={item} index={benefits.indexOf(item)} />
             ))}
           </div>
-          <ClipPath />
         </div>
       </Section>
 

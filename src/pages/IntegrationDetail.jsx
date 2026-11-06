@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Section from "../components/Section";
 import Button from "../components/Button";
-import Breadcrumbs from "../components/ui/Breadcrumbs";
+import PageHero from "../components/ui/PageHero";
 import Reveal from "../components/ui/Reveal";
-import GradientCard from "../components/ui/GradientCard";
 import Icon from "../components/ui/Icon";
 import Spinner from "../components/ui/Spinner";
 import CtaBanner from "../components/CtaBanner";
-import { brainwaveSymbol, check } from "../assets";
+import AppMark from "../components/brand/AppMark";
+import { LogoMark } from "../components/brand/Logo";
 import { collabApps } from "../constants";
 import usePageMeta from "../hooks/usePageMeta";
 import useToast from "../hooks/useToast";
@@ -35,13 +35,57 @@ const ConnectButton = ({ app }) => {
   };
 
   return (
-    <Button white={state !== "connected"} onClick={onClick} disabled={state === "connecting"} aria-live="polite">
-      {state === "connecting" && <Spinner />}
-      {state === "connected" && <Icon name="check" size={16} />}
-      {state === "idle" ? `Connect ${app.title}` : state === "connecting" ? "Connecting…" : "Connected · Disconnect"}
+    <Button
+      variant={state === "connected" ? "secondary" : "primary"}
+      size="lg"
+      onClick={onClick}
+      disabled={state === "connecting"}
+      aria-live="polite"
+    >
+      {state === "connecting" && <Spinner className="w-3.5 h-3.5" />}
+      {state === "connected" && <Icon name="check" size={15} className="text-accent" />}
+      {state === "idle" ? `Connect ${app.title}` : state === "connecting" ? "Connecting" : "Connected. Disconnect"}
     </Button>
   );
 };
+
+const ConnectionCard = ({ app }) => (
+  <div className="p-5 rounded-xl border border-line bg-surface bg-dotgrid md:p-6">
+    <div className="flex items-center justify-between gap-4 p-5 rounded-lg border border-line-strong bg-bg">
+      <div className="flex flex-col items-center gap-2">
+        <AppMark mark={app.mark} size="lg" />
+        <span className="font-mono text-2xs text-fg-3">{app.title}</span>
+      </div>
+      <div className="flex-1 flex items-center gap-2" aria-hidden="true">
+        <span className="flex-1 h-px bg-line-strong" />
+        <Icon name="arrowRight" size={14} className="text-fg-3" />
+        <span className="flex-1 h-px bg-line-strong" />
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <LogoMark size={64} />
+        <span className="font-mono text-2xs text-fg-3">Aster</span>
+      </div>
+    </div>
+    <dl className="grid grid-cols-2 mt-4 text-xs">
+      <div className="py-2.5 border-b border-line">
+        <dt className="text-fg-4">Access</dt>
+        <dd className="mt-0.5 text-fg-2">Read only, scoped</dd>
+      </div>
+      <div className="py-2.5 border-b border-line">
+        <dt className="text-fg-4">Sync</dt>
+        <dd className="mt-0.5 text-fg-2">Every 15 minutes</dd>
+      </div>
+      <div className="py-2.5">
+        <dt className="text-fg-4">Workspaces</dt>
+        <dd className="mt-0.5 font-mono text-fg-2">{app.installs}</dd>
+      </div>
+      <div className="py-2.5">
+        <dt className="text-fg-4">Plans</dt>
+        <dd className="mt-0.5 text-fg-2">Free, Pro, Team</dd>
+      </div>
+    </dl>
+  </div>
+);
 
 const IntegrationDetail = () => {
   const { slug } = useParams();
@@ -52,117 +96,86 @@ const IntegrationDetail = () => {
 
   const related = collabApps.filter((a) => a.slug !== slug && a.category === app.category).slice(0, 3);
   const more = related.length ? related : collabApps.filter((a) => a.slug !== slug).slice(0, 3);
+  const steps = [
+    `Select Connect ${app.title} and sign in to ${app.title}.`,
+    "Choose exactly which folders, collections or channels Aster may read.",
+    `Ask a question in any project. Answers cite the ${app.title} item they used.`,
+  ];
 
   return (
     <>
-      <Section crosses customPaddings className="pt-12 pb-16 md:pt-20 lg:pt-24 lg:pb-24 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 w-[60rem] h-[30rem] -translate-x-1/2 bg-radial-gradient from-[#28206C] to-[#28206C]/0 to-70% pointer-events-none" aria-hidden="true" />
-        <div className="container relative z-2">
-          <Breadcrumbs
-            className="mb-10"
-            items={[
-              { label: "Home", to: "/" },
-              { label: "Integrations", to: "/integrations" },
-              { label: app.title },
-            ]}
-          />
-          <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-            <Reveal>
-              <span className="inline-block mb-5 px-3 py-1 rounded-full bg-n-7 tagline text-n-3">{app.category}</span>
-              <h1 className="h1 mb-6">Brainwave for {app.title}</h1>
-              <p className="body-1 mb-10 text-n-3">{app.description}</p>
-              <div className="flex flex-wrap items-center gap-5">
-                <ConnectButton app={app} />
-                <span className="text-sm text-n-4">{app.installs} teams connected</span>
-              </div>
-            </Reveal>
+      <PageHero
+        label={app.category}
+        title={`Aster for ${app.title}`}
+        text={app.description}
+        breadcrumbs={[
+          { label: "Home", to: "/" },
+          { label: "Integrations", to: "/integrations" },
+          { label: app.title },
+        ]}
+        aside={<ConnectionCard app={app} />}
+      >
+        <ConnectButton app={app} />
+      </PageHero>
 
-            <Reveal delay={150} className="flex justify-center">
-              <div className="relative flex items-center justify-center w-[18rem] aspect-square border border-n-6 rounded-full">
-                <div className="absolute inset-10 border border-n-6 rounded-full" />
-                <div className="absolute inset-0 rounded-full border border-dashed border-n-1/10 animate-spin-slow" />
-                <div className="relative flex items-center gap-6">
-                  <div className="flex items-center justify-center w-20 h-20 bg-n-7 border border-n-1/15 rounded-2xl">
-                    <img src={app.icon} width={app.width * 1.4} height={app.height * 1.4} alt={app.title} />
-                  </div>
-                  <span className="flex gap-1" aria-hidden="true">
-                    {[0, 1, 2].map((i) => (
-                      <span key={i} className="typing-dot w-1.5 h-1.5 rounded-full bg-color-1" style={{ animationDelay: `${i * 0.15}s` }} />
-                    ))}
-                  </span>
-                  <div className="w-20 h-20 p-0.5 rounded-2xl bg-conic-gradient">
-                    <div className="flex items-center justify-center w-full h-full bg-n-8 rounded-[0.9rem]">
-                      <img src={brainwaveSymbol} width={40} height={40} alt="Brainwave" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </Section>
-
-      <Section crosses>
-        <div className="container grid gap-10 lg:grid-cols-2 lg:gap-20">
-          <Reveal>
-            <h2 className="h3 mb-8">What you can do</h2>
-            <ul>
+      <Section>
+        <div className="container grid-12 gap-y-12">
+          <Reveal className="col-span-4 md:col-span-8 lg:col-span-6">
+            <p className="t-label mb-5 text-fg-3">Capabilities</p>
+            <h2 className="t-h2 mb-8">What you can do</h2>
+            <ul className="border-t border-line">
               {app.capabilities.map((c) => (
-                <li key={c} className="flex items-start gap-4 py-5 border-t border-n-6">
-                  <img src={check} width={24} height={24} alt="" />
-                  <span className="body-2">{c}</span>
+                <li key={c} className="flex items-start gap-3 py-4 border-b border-line text-[0.9375rem] text-fg-2">
+                  <Icon name="check" size={16} className="mt-1 text-fg-3" />
+                  {c}
                 </li>
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={120}>
-            <GradientCard innerClassName="p-8">
-              <h2 className="h5 mb-6">Set up in 3 steps</h2>
-              <ol className="space-y-6">
-                {[
-                  `Click “Connect ${app.title}” above`,
-                  "Approve the requested permissions",
-                  `Type /brainwave in ${app.title} to get started`,
-                ].map((s, i) => (
-                  <li key={s} className="flex items-start gap-4">
-                    <span className="flex items-center justify-center w-8 h-8 shrink-0 rounded-lg bg-n-7 font-code text-sm text-color-1">{i + 1}</span>
-                    <span className="body-2 pt-1 text-n-2">{s}</span>
-                  </li>
-                ))}
-              </ol>
-              <p className="mt-8 pt-6 border-t border-n-6 text-xs text-n-4">
-                Permissions can be revoked at any time. Read our{" "}
-                <Link to="/privacy" className="text-n-2 underline hover:text-color-1">privacy policy</Link>.
-              </p>
-            </GradientCard>
+          <Reveal delay={80} className="col-span-4 md:col-span-8 lg:col-span-5 lg:col-start-8">
+            <p className="t-label mb-5 text-fg-3">Setup</p>
+            <h2 className="t-h2 mb-8">Three steps</h2>
+            <ol className="border-t border-line">
+              {steps.map((s, i) => (
+                <li key={s} className="flex items-start gap-4 py-4 border-b border-line">
+                  <span className="font-mono text-xs text-fg-4 pt-0.5">0{i + 1}</span>
+                  <span className="text-[0.9375rem] text-fg-2">{s}</span>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-6 text-xs text-fg-3">
+              Disconnecting removes the index within 24 hours. Read the{" "}
+              <Link to="/privacy" className="text-fg-2 underline decoration-line-strong underline-offset-4 hover:decoration-fg">
+                privacy policy
+              </Link>
+              .
+            </p>
           </Reveal>
         </div>
       </Section>
 
       <Section>
         <div className="container">
-          <h2 className="h4 mb-8">Related integrations</h2>
-          <ul className="grid gap-5 md:grid-cols-3">
+          <div className="flex items-end justify-between gap-4 mb-8">
+            <h2 className="t-h3">Related integrations</h2>
+            <Link to="/integrations" className="inline-flex items-center gap-1.5 text-sm text-fg-2 transition-colors hover:text-fg">
+              All integrations <Icon name="arrowRight" size={14} />
+            </Link>
+          </div>
+          <ul className="grid border-t border-l border-line md:grid-cols-3">
             {more.map((a) => (
-              <li key={a.id}>
-                <Link to={`/integrations/${a.slug}`} className="group flex items-center gap-4 p-5 border border-n-6 rounded-2xl transition-colors hover:border-color-1">
-                  <span className="flex items-center justify-center w-12 h-12 bg-n-7 rounded-xl">
-                    <img src={a.icon} width={a.width * 0.8} height={a.height * 0.8} alt="" loading="lazy" />
+              <li key={a.id} className="border-r border-b border-line">
+                <Link to={`/integrations/${a.slug}`} className="group flex items-center gap-4 p-5 transition-colors hover:bg-surface">
+                  <AppMark mark={a.mark} size="sm" />
+                  <span className="flex-1 min-w-0">
+                    <span className="block text-sm font-medium">{a.title}</span>
+                    <span className="block font-mono text-2xs text-fg-4">{a.category}</span>
                   </span>
-                  <span className="flex-1">
-                    <span className="block h6">{a.title}</span>
-                    <span className="block text-xs text-n-4">{a.category}</span>
-                  </span>
-                  <Icon name="arrowRight" size={18} className="text-n-4 transition-transform group-hover:translate-x-1 group-hover:text-n-1" />
+                  <Icon name="arrowUpRight" size={14} className="text-fg-4 transition-colors group-hover:text-fg" />
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="flex justify-center mt-12">
-            <Link to="/integrations" className="text-xs font-code font-bold tracking-wider uppercase border-b transition-colors hover:text-color-1 hover:border-color-1">
-              All integrations
-            </Link>
-          </div>
         </div>
       </Section>
 

@@ -1,6 +1,5 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import ButtonGradient from "./assets/svg/ButtonGradient";
 import Layout from "./components/layout/Layout";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import PageLoader from "./components/layout/PageLoader";
@@ -61,7 +60,6 @@ const App = () => {
         />
       </Routes>
 
-      <ButtonGradient />
     </>
   );
 };

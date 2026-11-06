@@ -2,7 +2,7 @@ import { useId, useState } from "react";
 import Icon from "./Icon";
 
 const baseInput =
-  "w-full h-12 px-4 bg-n-7 border rounded-xl text-n-1 placeholder:text-n-4 outline-none transition-colors focus:border-color-1 focus:bg-n-8";
+  "w-full h-11 px-3.5 bg-surface border rounded-md text-[0.9375rem] text-fg placeholder:text-fg-4 outline-none transition-colors focus:border-fg-3 focus:bg-bg";
 
 export const TextField = ({
   label,
@@ -22,7 +22,7 @@ export const TextField = ({
   return (
     <div className={className}>
       {label && (
-        <label htmlFor={id} className="block mb-2 text-sm text-n-2">
+        <label htmlFor={id} className="block mb-2 text-sm font-medium text-fg-2">
           {label}
         </label>
       )}
@@ -32,29 +32,27 @@ export const TextField = ({
           type={isPassword && show ? "text" : type}
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
-          className={`${baseInput} ${error ? "border-color-3" : "border-n-6"} ${
-            isPassword ? "pr-12" : ""
-          } ${inputClassName}`}
+          className={`${baseInput} ${error ? "border-danger" : "border-line-strong"} ${isPassword ? "pr-11" : ""} ${inputClassName}`}
           {...props}
         />
         {isPassword && (
           <button
             type="button"
             onClick={() => setShow((s) => !s)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-n-4 transition-colors hover:text-n-1"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded text-fg-3 transition-colors hover:text-fg"
             aria-label={show ? "Hide password" : "Show password"}
           >
-            <Icon name={show ? "eyeOff" : "eye"} size={18} />
+            <Icon name={show ? "eyeOff" : "eye"} size={17} />
           </button>
         )}
       </div>
       {error ? (
-        <p id={`${id}-error`} className="mt-2 text-xs text-color-3">
+        <p id={`${id}-error`} className="mt-2 text-xs text-danger">
           {error}
         </p>
       ) : (
         hint && (
-          <p id={`${id}-hint`} className="mt-2 text-xs text-n-4">
+          <p id={`${id}-hint`} className="mt-2 text-xs text-fg-3">
             {hint}
           </p>
         )
@@ -71,11 +69,11 @@ export const TextArea = ({ label, error, className = "", id: idProp, maxLength, 
     <div className={className}>
       {label && (
         <div className="flex items-center justify-between mb-2">
-          <label htmlFor={id} className="block text-sm text-n-2">
+          <label htmlFor={id} className="block text-sm font-medium text-fg-2">
             {label}
           </label>
           {maxLength && (
-            <span className="text-xs text-n-4 tabular-nums">
+            <span className="font-mono text-2xs text-fg-3 tabular">
               {value.length}/{maxLength}
             </span>
           )}
@@ -87,13 +85,11 @@ export const TextArea = ({ label, error, className = "", id: idProp, maxLength, 
         maxLength={maxLength}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`${baseInput} h-auto min-h-[9rem] py-3 resize-y ${
-          error ? "border-color-3" : "border-n-6"
-        }`}
+        className={`${baseInput} h-auto min-h-[9rem] py-3 resize-y leading-6 ${error ? "border-danger" : "border-line-strong"}`}
         {...props}
       />
       {error && (
-        <p id={`${id}-error`} className="mt-2 text-xs text-color-3">
+        <p id={`${id}-error`} className="mt-2 text-xs text-danger">
           {error}
         </p>
       )}
@@ -108,29 +104,21 @@ export const SelectField = ({ label, error, options, className = "", id: idProp,
   return (
     <div className={className}>
       {label && (
-        <label htmlFor={id} className="block mb-2 text-sm text-n-2">
+        <label htmlFor={id} className="block mb-2 text-sm font-medium text-fg-2">
           {label}
         </label>
       )}
       <div className="relative">
-        <select
-          id={id}
-          className={`${baseInput} appearance-none pr-10 ${error ? "border-color-3" : "border-n-6"}`}
-          {...props}
-        >
+        <select id={id} className={`${baseInput} appearance-none pr-10 ${error ? "border-danger" : "border-line-strong"}`} {...props}>
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>
           ))}
         </select>
-        <Icon
-          name="chevronDown"
-          size={18}
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-n-4 pointer-events-none"
-        />
+        <Icon name="chevronDown" size={16} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-fg-3 pointer-events-none" />
       </div>
-      {error && <p className="mt-2 text-xs text-color-3">{error}</p>}
+      {error && <p className="mt-2 text-xs text-danger">{error}</p>}
     </div>
   );
 };
@@ -141,20 +129,14 @@ export const Checkbox = ({ label, error, className = "", id: idProp, ...props })
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="flex items-start gap-3 text-sm text-n-3 cursor-pointer">
-        <input
-          id={id}
-          type="checkbox"
-          className="peer sr-only"
-          aria-invalid={!!error}
-          {...props}
-        />
-        <span className="flex items-center justify-center w-5 h-5 mt-0.5 shrink-0 rounded-md border border-n-5 bg-n-7 text-transparent transition-colors peer-checked:bg-color-1 peer-checked:border-color-1 peer-checked:text-n-1 peer-focus-visible:ring-2 peer-focus-visible:ring-color-1">
-          <Icon name="check" size={14} strokeWidth={3} />
+      <label htmlFor={id} className="flex items-start gap-3 text-sm text-fg-2 cursor-pointer">
+        <input id={id} type="checkbox" className="peer sr-only" aria-invalid={!!error} {...props} />
+        <span className="flex items-center justify-center w-[1.125rem] h-[1.125rem] mt-0.5 shrink-0 rounded-sm border border-line-strong bg-surface text-transparent transition-colors peer-checked:bg-accent peer-checked:border-accent peer-checked:text-accent-ink peer-focus-visible:ring-2 peer-focus-visible:ring-accent">
+          <Icon name="check" size={13} strokeWidth={3} />
         </span>
         <span>{label}</span>
       </label>
-      {error && <p className="mt-2 ml-8 text-xs text-color-3">{error}</p>}
+      {error && <p className="mt-2 ml-8 text-xs text-danger">{error}</p>}
     </div>
   );
 };

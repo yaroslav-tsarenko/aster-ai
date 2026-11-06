@@ -1,69 +1,59 @@
 import { Link } from "react-router-dom";
-import Section from "./Section";
-import { brainwave } from "../assets";
 import { footerLinks, socials } from "../constants";
+import Logo from "./brand/Logo";
 import NewsletterForm from "./NewsletterForm";
 
-const Footer = () => {
-  return (
-    <Section as="footer" crosses customPaddings className="pt-16 pb-10 lg:pt-20">
-      <div className="container">
-        <div className="grid gap-12 pb-12 border-b border-n-6 lg:grid-cols-[1.2fr_2fr] lg:gap-20">
-          <div className="max-w-sm">
-            <Link to="/" className="inline-block mb-6" aria-label="Brainwave home">
-              <img src={brainwave} width={190} height={40} alt="Brainwave" loading="lazy" />
-            </Link>
-            <p className="body-2 mb-6 text-n-4">
-              The AI chat app for curious minds. Get product news and prompt tips once a month.
-            </p>
-            <NewsletterForm />
-          </div>
-
-          <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
-            {footerLinks.map((group) => (
-              <div key={group.title}>
-                <h2 className="tagline mb-5 text-n-1/50">{group.title}</h2>
-                <ul className="space-y-3">
-                  {group.links.map((link) => (
-                    <li key={link.url}>
-                      <Link
-                        to={link.url}
-                        className="body-2 text-n-3 transition-colors hover:text-color-1"
-                      >
-                        {link.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex sm:justify-between justify-center items-center gap-8 pt-10 max-sm:flex-col">
-          <p className="caption text-n-4">
-            © {new Date().getFullYear()} Brainwave. All rights reserved.
+const Footer = () => (
+  <footer className="border-t border-line">
+    <div className="container pt-16 pb-10 lg:pt-20">
+      <div className="grid-12 gap-y-12 pb-14">
+        <div className="col-span-4 md:col-span-8 lg:col-span-4">
+          <Link to="/" className="inline-block mb-5" aria-label="Aster home">
+            <Logo />
+          </Link>
+          <p className="t-small max-w-xs mb-6 text-fg-3">
+            Research, writing and images in one calm workspace. Product notes once a month, nothing else.
           </p>
-
-          <ul className="flex gap-5 flex-wrap justify-center">
-            {socials.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Brainwave on ${item.title}`}
-                  className="flex items-center justify-center w-10 h-10 bg-n-7 rounded-full transition-colors hover:bg-n-6"
-                >
-                  <img src={item.iconUrl} width={16} height={16} alt="" loading="lazy" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <NewsletterForm className="max-w-sm" />
         </div>
+
+        {footerLinks.map((group) => (
+          <div key={group.title} className="col-span-2 md:col-span-2 lg:col-span-2">
+            <h2 className="t-label mb-5 text-fg-3">{group.title}</h2>
+            <ul className="space-y-3">
+              {group.links.map((link) => (
+                <li key={link.url}>
+                  <Link to={link.url} className="text-sm text-fg-2 transition-colors hover:text-fg">
+                    {link.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </Section>
-  );
-};
+
+      <div className="flex flex-col gap-4 pt-8 border-t border-line md:flex-row md:items-center md:justify-between">
+        <p className="text-xs text-fg-3">
+          © {new Date().getFullYear()} Aster. A concept product designed and built by Yaroslav Tsarenko.
+        </p>
+        <ul className="flex flex-wrap gap-x-5 gap-y-2">
+          {socials.map((item) => (
+            <li key={item.id}>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs text-fg-3 transition-colors hover:text-fg"
+              >
+                {item.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

@@ -8,7 +8,7 @@ const BillingToggle = ({ value, onChange, className = "" }) => (
     onChange={onChange}
     options={[
       { value: "monthly", label: "Monthly" },
-      { value: "annual", label: "Annual", badge: "-20%" },
+      { value: "annual", label: "Annual", badge: "-17%" },
     ]}
   />
 );

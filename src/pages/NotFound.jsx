@@ -1,57 +1,57 @@
 import { Link } from "react-router-dom";
-import Section from "../components/Section";
 import Button from "../components/Button";
 import Icon from "../components/ui/Icon";
-import { BackgroundCircles } from "../components/design/Header";
 import usePageMeta from "../hooks/usePageMeta";
 import useCommandPalette from "../hooks/useCommandPalette";
 
 const suggestions = [
-  { label: "Features", to: "/features" },
+  { label: "Product overview", to: "/features" },
+  { label: "How it works", to: "/how-to-use" },
   { label: "Pricing", to: "/pricing" },
   { label: "Blog", to: "/blog" },
   { label: "Contact", to: "/contact" },
 ];
 
 const NotFound = () => {
-  usePageMeta("Page not found", "The page you're looking for doesn't exist.");
+  usePageMeta("Page not found", "The page you are looking for does not exist.");
   const palette = useCommandPalette();
 
   return (
-    <Section crosses customPaddings className="py-24 md:py-32 lg:py-40 overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/2 left-1/2 w-[50rem] aspect-square -translate-x-1/2 -translate-y-1/2 bg-radial-gradient from-[#28206C] to-[#28206C]/0 to-70%" />
-        {[46, 34, 22].map((w) => (
-          <div key={w} className="absolute top-1/2 left-1/2 aspect-square border border-n-2/10 rounded-full -translate-x-1/2 -translate-y-1/2" style={{ width: `${w}rem` }} />
-        ))}
-        <BackgroundCircles />
-      </div>
-      <div className="container relative z-2 text-center">
-        <p className="mb-4 font-code text-sm uppercase tracking-tagline text-n-4">Error 404</p>
-        <h1 className="mb-6 font-semibold text-[7rem] leading-none md:text-[10rem] text-gradient">404</h1>
-        <h2 className="h3 mb-4">This page wandered off</h2>
-        <p className="body-1 max-w-xl mx-auto mb-10 text-n-3">
-          Even our AI couldn’t find what you were looking for. Try one of these instead, or search the site.
-        </p>
-        <div className="flex flex-col items-center justify-center gap-4 mb-12 sm:flex-row">
-          <Button href="/" white>
-            Back to home
-          </Button>
-          <Button onClick={palette.open}>
-            <Icon name="search" size={16} /> Search the site
-          </Button>
+    <section className="py-20 md:py-28 lg:py-32">
+      <div className="container grid-12 gap-y-12">
+        <div className="col-span-4 md:col-span-8 lg:col-span-7">
+          <p className="t-label mb-6 text-fg-3">Error 404</p>
+          <h1 className="t-h1 mb-6">No source for that page.</h1>
+          <p className="t-lead max-w-xl mb-10">
+            The link may be old, or the page moved when we renamed things. Search the site, or start from one of the pages on the right.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Button href="/" variant="primary" size="lg">
+              Back to home
+            </Button>
+            <Button onClick={palette.open} variant="secondary" size="lg">
+              <Icon name="search" size={15} /> Search the site
+            </Button>
+          </div>
         </div>
-        <ul className="flex flex-wrap justify-center gap-3">
-          {suggestions.map((s) => (
-            <li key={s.to}>
-              <Link to={s.to} className="inline-block px-4 py-2 rounded-full border border-n-6 text-sm text-n-3 transition-colors hover:border-color-1 hover:text-n-1">
-                {s.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="col-span-4 md:col-span-8 lg:col-span-4 lg:col-start-9 lg:self-end">
+          <div className="p-4 rounded-lg border border-line bg-surface font-mono text-xs leading-6 text-fg-3 mb-6" aria-hidden="true">
+            <p><span className="text-fg-4">GET</span> {typeof window !== "undefined" ? window.location.pathname : "/"}</p>
+            <p><span className="text-danger">404</span> Not found, 0 sources matched</p>
+          </div>
+          <ul className="border-t border-line">
+            {suggestions.map((s) => (
+              <li key={s.to} className="border-b border-line">
+                <Link to={s.to} className="group flex items-center justify-between py-3 text-sm text-fg-2 transition-colors hover:text-fg">
+                  {s.label}
+                  <Icon name="arrowRight" size={14} className="text-fg-4 group-hover:text-fg" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 };
 

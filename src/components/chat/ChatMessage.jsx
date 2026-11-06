@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { brainwaveWhiteSymbol } from "../../assets";
 import Icon from "../ui/Icon";
 import Markdown from "./Markdown";
 import TypingIndicator from "./TypingIndicator";
 import useToast from "../../hooks/useToast";
 import { copyToClipboard } from "../../lib/utils";
+import { LogoMark } from "../brand/Logo";
 
 const ActionButton = ({ label, onClick, active, children }) => (
   <button
@@ -13,8 +13,8 @@ const ActionButton = ({ label, onClick, active, children }) => (
     aria-label={label}
     title={label}
     aria-pressed={active}
-    className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors hover:bg-n-6 hover:text-n-1 ${
-      active ? "text-color-1" : "text-n-4"
+    className={`flex items-center justify-center w-7 h-7 rounded-md transition-colors hover:bg-raised hover:text-fg ${
+      active ? "text-accent" : "text-fg-3"
     }`}
   >
     {children}
@@ -33,14 +33,14 @@ const ChatMessage = ({ message, onRegenerate, onFeedback, compact }) => {
       toast("Response copied to clipboard");
       setTimeout(() => setCopied(false), 1600);
     } else {
-      toast("Couldn't access the clipboard", { tone: "error" });
+      toast("Could not access the clipboard", { tone: "error" });
     }
   };
 
   if (isUser) {
     return (
       <div className="flex justify-end animate-pop-in">
-        <div className="max-w-[85%] px-5 py-3 rounded-2xl rounded-br-md bg-n-6 text-n-1 body-2 !font-normal whitespace-pre-wrap break-words">
+        <div className="max-w-[85%] px-4 py-2.5 rounded-lg bg-raised border border-line text-fg text-[0.9375rem] leading-6 whitespace-pre-wrap break-words">
           {message.content}
         </div>
       </div>
@@ -51,32 +51,26 @@ const ChatMessage = ({ message, onRegenerate, onFeedback, compact }) => {
   const done = message.status === "done" || message.status === "stopped";
 
   return (
-    <div className="flex gap-3 md:gap-4 animate-pop-in">
-      <div className="flex items-center justify-center w-9 h-9 shrink-0 rounded-xl bg-color-1">
-        <img src={brainwaveWhiteSymbol} width={22} height={22} alt="" />
-      </div>
+    <div className="flex gap-3 animate-pop-in">
+      <LogoMark size={24} className="mt-0.5" />
       <div className="flex-1 min-w-0">
         <div
-          className={`${compact ? "text-sm leading-6" : "body-2 !font-normal"} text-n-2 break-words ${
+          className={`${compact ? "text-sm leading-6" : "text-[0.9375rem] leading-7"} text-fg-2 break-words ${
             streaming ? "stream-caret" : ""
           }`}
           aria-live={streaming ? "polite" : undefined}
         >
-          {message.status === "typing" ? (
-            <TypingIndicator />
-          ) : (
-            <Markdown text={message.content} />
-          )}
+          {message.status === "typing" ? <TypingIndicator /> : <Markdown text={message.content} />}
         </div>
 
         {done && (
-          <div className="flex items-center gap-1 mt-2 -ml-1.5">
+          <div className="flex items-center gap-0.5 mt-2 -ml-1.5">
             <ActionButton label={copied ? "Copied" : "Copy response"} onClick={handleCopy}>
-              <Icon name={copied ? "check" : "copy"} size={16} />
+              <Icon name={copied ? "check" : "copy"} size={14} />
             </ActionButton>
             {onRegenerate && (
               <ActionButton label="Regenerate response" onClick={() => onRegenerate(message.id)}>
-                <Icon name="refresh" size={16} />
+                <Icon name="refresh" size={14} />
               </ActionButton>
             )}
             {onFeedback && (
@@ -86,27 +80,25 @@ const ChatMessage = ({ message, onRegenerate, onFeedback, compact }) => {
                   active={message.feedback === "up"}
                   onClick={() => {
                     onFeedback(message.id, message.feedback === "up" ? null : "up");
-                    if (message.feedback !== "up") toast("Thanks for the feedback!", { tone: "info" });
+                    if (message.feedback !== "up") toast("Thanks for the feedback", { tone: "info" });
                   }}
                 >
-                  <Icon name="thumbUp" size={16} />
+                  <Icon name="thumbUp" size={14} />
                 </ActionButton>
                 <ActionButton
                   label="Bad response"
                   active={message.feedback === "down"}
                   onClick={() => {
                     onFeedback(message.id, message.feedback === "down" ? null : "down");
-                    if (message.feedback !== "down") toast("Thanks, we'll use this to improve.", { tone: "info" });
+                    if (message.feedback !== "down") toast("Thanks, this helps us improve answers", { tone: "info" });
                   }}
                 >
-                  <Icon name="thumbDown" size={16} />
+                  <Icon name="thumbDown" size={14} />
                 </ActionButton>
               </>
             )}
             {message.variant > 0 && (
-              <span className="ml-2 font-code text-[0.6875rem] uppercase tracking-wider text-n-4">
-                Version {message.variant + 1}
-              </span>
+              <span className="ml-2 font-mono text-2xs text-fg-3">v{message.variant + 1}</span>
             )}
           </div>
         )}

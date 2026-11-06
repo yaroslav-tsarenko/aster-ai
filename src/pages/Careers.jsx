@@ -7,13 +7,19 @@ import CtaBanner from "../components/CtaBanner";
 import Button from "../components/Button";
 import Reveal from "../components/ui/Reveal";
 import SegmentedControl from "../components/ui/SegmentedControl";
-import GradientCard from "../components/ui/GradientCard";
 import Icon from "../components/ui/Icon";
 import { jobs, perks } from "../constants";
 import usePageMeta from "../hooks/usePageMeta";
 
+const process = [
+  { title: "Intro call", text: "30 minutes with the hiring manager about the role and what you want next." },
+  { title: "Work sample", text: "A paid, time-boxed task close to the real job. Four hours at most." },
+  { title: "Team conversations", text: "Two calls with future colleagues. You ask as many questions as we do." },
+  { title: "Offer", text: "A written offer within three working days, with salary and equity in full." },
+];
+
 const Careers = () => {
-  usePageMeta("Careers", "Join the Brainwave team. We're hiring engineers, designers and researchers to build a calm, private AI assistant.");
+  usePageMeta("Careers", "Join Aster. We are hiring engineers, a designer and a technical writer, remote in Europe.");
   const departments = useMemo(() => ["All", ...new Set(jobs.map((j) => j.department))], []);
   const [dept, setDept] = useState("All");
   const list = jobs.filter((j) => dept === "All" || j.department === dept);
@@ -21,76 +27,90 @@ const Careers = () => {
   return (
     <>
       <PageHero
-        tag="Careers"
-        title={
-          <>
-            Help us shape the <span className="text-gradient">future of AI</span>
-          </>
-        }
-        text="We're a remote-first team of builders who care deeply about craft, privacy and the people who use our product."
+        label="Careers"
+        title="Build the assistant people trust with their work"
+        text="We are a team of 24, remote in Europe, building tools for researchers, editors and designers. Salaries are listed on every role."
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Careers" }]}
       >
-        <Button href="#open-roles" white>
-          See open roles
+        <Button href="#open-roles" variant="primary" size="lg">
+          See {jobs.length} open roles
         </Button>
       </PageHero>
 
-      <Section crosses>
+      <Section>
         <div className="container">
-          <Heading tag="Perks" title="Why you'll love working here" />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <Heading label="01 / How we work" title="Small team, long focus" />
+          <div className="grid border-t border-l border-line sm:grid-cols-2 lg:grid-cols-4">
             {perks.map((p, i) => (
-              <Reveal key={p.id} delay={i * 80}>
-                <GradientCard muted={i !== 0} className="h-full" innerClassName="p-7">
-                  <span className="block mb-5 font-code text-sm text-color-1">0{i + 1}</span>
-                  <h3 className="h6 mb-2">{p.title}</h3>
-                  <p className="body-2 text-n-4">{p.text}</p>
-                </GradientCard>
+              <Reveal key={p.id} delay={i * 60} className="p-6 border-r border-b border-line">
+                <p className="mb-10 font-mono text-2xs text-fg-4">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="t-h4 mb-2">{p.title}</h3>
+                <p className="t-small text-fg-3">{p.text}</p>
               </Reveal>
             ))}
           </div>
         </div>
       </Section>
 
-      <Section crosses id="open-roles">
+      <Section id="open-roles">
         <div className="container">
-          <Heading tag={`${jobs.length} open roles`} title="Find your role" />
-          <div className="flex justify-center mb-10">
-            <SegmentedControl label="Filter by department" value={dept} onChange={setDept} size="sm" options={departments.map((d) => ({ value: d, label: d }))} />
-          </div>
-          <ul className="max-w-4xl mx-auto border-t border-n-6">
+          <Heading label="02 / Open roles" title="Current openings">
+            <div className="mt-8">
+              <SegmentedControl label="Filter by department" value={dept} onChange={setDept} options={departments.map((d) => ({ value: d, label: d }))} />
+            </div>
+          </Heading>
+          <ul className="border-t border-line">
             {list.map((job) => (
-              <li key={job.slug} className="border-b border-n-6 animate-fade-in">
-                <Link to={`/careers/${job.slug}`} className="group flex flex-col gap-4 py-7 md:flex-row md:items-center">
-                  <div className="flex-1">
-                    <h3 className="h6 mb-1 transition-colors group-hover:text-color-1">{job.title}</h3>
-                    <p className="body-2 text-n-4">{job.summary}</p>
+              <li key={job.slug} className="border-b border-line animate-fade-in">
+                <Link to={`/careers/${job.slug}`} className="group grid-12 gap-y-3 py-6 transition-colors hover:bg-surface/60">
+                  <div className="col-span-4 md:col-span-5 lg:col-span-6">
+                    <h3 className="t-h4 mb-1">{job.title}</h3>
+                    <p className="t-small text-fg-3">{job.summary}</p>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 md:justify-end md:w-72">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-n-7 text-xs text-n-3">
-                      <Icon name="briefcase" size={14} />
-                      {job.department}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-n-7 text-xs text-n-3">
-                      <Icon name="mapPin" size={14} />
-                      {job.location}
-                    </span>
+                  <div className="col-span-4 md:col-span-3 lg:col-span-5 flex flex-wrap content-start gap-x-5 gap-y-1 font-mono text-xs text-fg-3 lg:pt-1">
+                    <span>{job.department}</span>
+                    <span>{job.location}</span>
+                    <span>{job.type}</span>
+                    <span className="text-fg-2">{job.salary}</span>
                   </div>
-                  <Icon name="arrowRight" size={20} className="hidden md:block text-n-4 transition-transform group-hover:translate-x-1 group-hover:text-n-1" />
+                  <div className="hidden lg:flex lg:col-span-1 justify-end pt-1">
+                    <Icon name="arrowRight" size={17} className="text-fg-4 transition-transform group-hover:translate-x-0.5 group-hover:text-fg" />
+                  </div>
                 </Link>
               </li>
             ))}
           </ul>
-          <p className="mt-10 text-center body-2 text-n-4">
-            Don’t see your role?{" "}
-            <Link to="/contact?topic=careers" className="text-n-1 underline transition-colors hover:text-color-1">
-              Send us an open application
+          <p className="mt-8 t-small text-fg-3">
+            No role that fits?{" "}
+            <Link to="/contact?topic=careers" className="text-fg underline underline-offset-4 decoration-line-strong hover:decoration-fg">
+              Send an open application
             </Link>
             .
           </p>
         </div>
       </Section>
 
-      <CtaBanner title="Curious about our culture?" text="Read how we work, what we value and how Brainwave started." primary={{ label: "About Brainwave", url: "/about" }} secondary={{ label: "Read the blog", url: "/blog" }} />
+      <Section>
+        <div className="container">
+          <Heading label="03 / Process" title="Four steps, about three weeks" />
+          <ol className="grid border-t border-line md:grid-cols-4">
+            {process.map((s, i) => (
+              <Reveal as="li" key={s.title} delay={i * 60} className="pt-6 pb-2 md:pr-8">
+                <p className="mb-3 font-mono text-2xs text-fg-4">Step {i + 1}</p>
+                <h3 className="t-h4 mb-2">{s.title}</h3>
+                <p className="t-small text-fg-3">{s.text}</p>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </Section>
+
+      <CtaBanner
+        title="Want to know us first?"
+        text="Read how Aster started, what we value and who you would work with."
+        primary={{ label: "About Aster", url: "/about" }}
+        secondary={{ label: "Read the blog", url: "/blog" }}
+      />
     </>
   );
 };

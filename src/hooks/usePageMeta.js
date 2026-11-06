@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 
-const SITE_NAME = "Brainwave";
+const SITE_NAME = "Aster";
+const DEFAULT_TITLE = "Aster AI - The assistant for research, writing and images";
 const DEFAULT_DESCRIPTION =
-  "Brainwave is the AI chat app that helps you write, code, design and create faster. Ask anything, generate images and collaborate across your favourite tools.";
+  "Aster reads your sources, cites every claim, drafts in your voice and generates images that match your brief. A concept product by Yaroslav Tsarenko.";
 
 const setMeta = (selector, attr, value) => {
   let el = document.head.querySelector(selector);
@@ -20,9 +21,7 @@ const setMeta = (selector, attr, value) => {
  */
 const usePageMeta = (title, description = DEFAULT_DESCRIPTION) => {
   useEffect(() => {
-    const fullTitle = title
-      ? `${title} | ${SITE_NAME}`
-      : `${SITE_NAME} - Your AI Assistant`;
+    const fullTitle = title ? `${title} | ${SITE_NAME}` : DEFAULT_TITLE;
     document.title = fullTitle;
     setMeta('meta[name="description"]', "content", description);
     setMeta('meta[property="og:title"]', "content", fullTitle);

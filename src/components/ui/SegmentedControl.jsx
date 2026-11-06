@@ -1,11 +1,11 @@
 /**
- * Pill-style segmented control used for billing toggles and filters.
+ * Segmented control used for billing toggles and filters.
  */
 const SegmentedControl = ({ options, value, onChange, label, className = "", size = "md" }) => (
   <div
     role="radiogroup"
     aria-label={label}
-    className={`inline-flex max-w-full gap-1 p-1 overflow-x-auto scrollbar-none bg-n-7 border border-n-6 rounded-full ${className}`}
+    className={`inline-flex max-w-full gap-0.5 p-0.5 overflow-x-auto scrollbar-none bg-surface border border-line rounded-md ${className}`}
   >
     {options.map((opt) => {
       const active = opt.value === value;
@@ -16,19 +16,13 @@ const SegmentedControl = ({ options, value, onChange, label, className = "", siz
           role="radio"
           aria-checked={active}
           onClick={() => onChange(opt.value)}
-          className={`relative shrink-0 whitespace-nowrap button rounded-full transition-colors ${
-            size === "sm" ? "px-3 py-1.5" : "px-5 py-2.5"
-          } ${active ? "bg-n-1 text-n-8" : "text-n-3 hover:text-n-1"}`}
+          className={`relative inline-flex items-center gap-2 shrink-0 whitespace-nowrap rounded font-medium transition-colors ${
+            size === "sm" ? "h-7 px-2.5 text-xs" : "h-8 px-3.5 text-[0.8125rem]"
+          } ${active ? "bg-raised text-fg shadow-[inset_0_0_0_1px_#363a41]" : "text-fg-3 hover:text-fg"}`}
         >
           {opt.label}
           {opt.badge && (
-            <span
-              className={`ml-2 px-1.5 py-0.5 rounded text-[0.625rem] ${
-                active ? "bg-color-1 text-n-1" : "bg-n-6 text-color-4"
-              }`}
-            >
-              {opt.badge}
-            </span>
+            <span className={`font-mono text-2xs ${active ? "text-accent" : "text-fg-3"}`}>{opt.badge}</span>
           )}
         </button>
       );

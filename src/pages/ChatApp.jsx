@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { brainwave, brainwaveSymbol, notification1 } from "../assets";
+import Logo, { LogoMark } from "../components/brand/Logo";
+import Avatar from "../components/brand/Avatar";
 import { chatModels, suggestedPrompts } from "../constants";
 import ChatWindow from "../components/chat/ChatWindow";
 import Icon from "../components/ui/Icon";
@@ -11,7 +12,7 @@ import useCommandPalette from "../hooks/useCommandPalette";
 import { makeTitle, uid } from "../lib/mockAi";
 import { copyToClipboard } from "../lib/utils";
 
-const STORAGE_KEY = "brainwave-demo-chats-v1";
+const STORAGE_KEY = "aster-demo-chats-v1";
 const DAY = 86400000;
 
 const seed = () => {
@@ -20,29 +21,29 @@ const seed = () => {
   return [
     {
       id: uid(),
-      title: "Launch plan for v2.4",
+      title: "Outline for the urban heat brief",
       updatedAt: now - 3600000,
       messages: [
-        msg("user", "Help me outline a launch plan for our v2.4 release.", now - 3700000),
-        msg("assistant", "Here's a lightweight launch plan:\n\n1. **T-7 days**: finalise release notes and screenshots\n2. **T-3 days**: brief support and prepare FAQ\n3. **Launch day**: blog post, newsletter and social thread\n4. **T+7 days**: collect feedback and share metrics\n\nWant me to draft the release notes next?", now - 3600000),
+        msg("user", "Give me an outline for a two-page brief on cooling dense neighbourhoods.", now - 3700000),
+        msg("assistant", "Here is a two-page outline built from the 12 sources in this project:\n\n1. **Why it matters**: heat deaths and costs, with the two strongest local figures [1]\n2. **What works**: street trees, cool roofs and shade, ranked by measured effect [2][3]\n3. **What it costs**: cost per degree of cooling, where the sources allow it\n4. **Recommendations**: three actions for the next budget cycle\n\nWant me to draft section 2 first?", now - 3600000),
       ],
     },
     {
       id: uid(),
-      title: "Explain React Server Components",
+      title: "React Server Components in two sentences",
       updatedAt: now - DAY * 1.2,
       messages: [
         msg("user", "Explain React Server Components in two sentences.", now - DAY * 1.2),
-        msg("assistant", "React Server Components render on the server and send a lightweight description of the UI to the browser, so they can fetch data directly without shipping their code to the client. You mix them with regular client components for interactivity.", now - DAY * 1.2),
+        msg("assistant", "React Server Components render on the server and send a compact description of the UI to the browser, so they can read data directly without shipping their code to the client. You combine them with regular client components wherever you need interactivity.", now - DAY * 1.2),
       ],
     },
     {
       id: uid(),
-      title: "Birthday message for Sam",
+      title: "Cover prompt for the spring series",
       updatedAt: now - DAY * 4,
       messages: [
-        msg("user", "Write a short, funny birthday message for my friend Sam who loves coffee.", now - DAY * 4),
-        msg("assistant", "Happy birthday, Sam! ☕ May your day be as strong as your espresso and your year as smooth as a perfect flat white. Here's to another trip around the sun, fuelled entirely by caffeine.", now - DAY * 4),
+        msg("user", "Write an image prompt for the spring report cover, matching the Editorial preset.", now - DAY * 4),
+        msg("assistant", "Try this with the Editorial preset at 16:9:\n\n`A single aster flower seen from above, flat shapes, slate and pale blue palette, generous empty space on the left for the title`\n\nIf the flower feels too literal, swap it for layered paper hills in the same palette.", now - DAY * 4),
       ],
     },
   ];
@@ -95,13 +96,16 @@ const ModelPicker = ({ value, onChange }) => {
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex items-center gap-2 h-10 px-3 rounded-xl text-sm font-semibold transition-colors hover:bg-n-7"
+        className={`inline-flex items-center gap-2 h-8 px-2.5 rounded-md border text-[0.8125rem] font-medium transition-colors ${
+          open ? "border-line-strong bg-raised" : "border-line hover:border-line-strong"
+        }`}
       >
+        <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
         {current.label}
-        <Icon name="chevronDown" size={16} className={`text-n-4 transition-transform ${open ? "rotate-180" : ""}`} />
+        <Icon name="chevronDown" size={14} className={`text-fg-3 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <ul role="listbox" aria-label="Choose a model" className="absolute left-0 top-12 z-30 w-64 p-1.5 bg-n-7 border border-n-6 rounded-2xl shadow-2xl animate-pop-in">
+        <ul role="listbox" aria-label="Choose a model" className="absolute left-0 top-10 z-30 w-72 p-1 bg-raised border border-line-strong rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-pop-in">
           {chatModels.map((m) => (
             <li key={m.id}>
               <button
@@ -112,13 +116,19 @@ const ModelPicker = ({ value, onChange }) => {
                   onChange(m.id);
                   setOpen(false);
                 }}
-                className="flex items-start gap-3 w-full p-3 rounded-xl text-left transition-colors hover:bg-n-6"
+                className={`flex items-start gap-3 w-full px-2.5 py-2 rounded-md text-left transition-colors ${
+                  m.id === value ? "bg-surface" : "hover:bg-surface"
+                }`}
               >
                 <span className="flex-1">
-                  <span className="block text-sm font-semibold">{m.label}</span>
-                  <span className="block text-xs text-n-4">{m.description}</span>
+                  <span className="block text-[0.8125rem] font-medium">{m.label}</span>
+                  <span className="block text-xs text-fg-3">{m.description}</span>
                 </span>
-                {m.id === value && <Icon name="check" size={16} className="mt-0.5 text-color-1" />}
+                {m.id === value ? (
+                  <Icon name="check" size={14} className="mt-0.5 text-accent" />
+                ) : (
+                  <span className="mt-0.5 font-mono text-2xs text-fg-4">{m.meta}</span>
+                )}
               </button>
             </li>
           ))}
@@ -129,7 +139,7 @@ const ModelPicker = ({ value, onChange }) => {
 };
 
 const ChatPanel = ({ conversation, model, onChange }) => {
-  const chat = useMockChat({ initialMessages: conversation.messages, speed: model === "brainwave-turbo" ? 2.5 : 1 });
+  const chat = useMockChat({ initialMessages: conversation.messages, speed: model === "aster-swift" ? 2.5 : 1 });
   const { messages, isBusy } = chat;
   const onChangeRef = useRef(onChange);
 
@@ -145,29 +155,26 @@ const ChatPanel = ({ conversation, model, onChange }) => {
   return (
     <ChatWindow
       chat={chat}
-      className="flex-1 w-full max-w-3xl mx-auto px-4 pb-4 md:px-6 md:pb-6"
-      listClassName="pt-6 pr-1"
-      inputPlaceholder={`Message ${chatModels.find((m) => m.id === model).label}…`}
-      footer={<p className="mt-2 text-center text-[0.6875rem] text-n-4">Demo assistant with canned responses. Brainwave can make mistakes.</p>}
+      className="flex-1 w-full max-w-3xl mx-auto px-4 pb-4 md:px-6 md:pb-5"
+      listClassName="pt-8 pr-1"
+      inputPlaceholder={`Message ${chatModels.find((m) => m.id === model).label}`}
+      footer={<p className="mt-2 text-center text-2xs text-fg-4">Demo assistant with prepared answers. Check citations before you rely on them.</p>}
       emptyContent={(send) => (
-        <div className="flex flex-col items-center justify-center min-h-full py-10 text-center">
-          <div className="w-16 h-16 p-0.5 mb-6 rounded-2xl bg-conic-gradient">
-            <div className="flex items-center justify-center w-full h-full bg-n-8 rounded-[0.9rem]">
-              <img src={brainwaveSymbol} width={32} height={32} alt="" />
-            </div>
-          </div>
-          <h1 className="h5 mb-2 md:h4">How can I help you today?</h1>
-          <p className="body-2 mb-10 text-n-4">Pick a suggestion or write your own message.</p>
-          <div className="grid w-full gap-3 sm:grid-cols-2">
-            {suggestedPrompts.map((p) => (
+        <div className="flex flex-col justify-center min-h-full py-10">
+          <LogoMark size={32} className="mb-6" />
+          <h1 className="t-h3 mb-2">What are you working on?</h1>
+          <p className="t-small mb-8 text-fg-3">Ask about your sources, start a draft, or pick one of these.</p>
+          <div className="grid w-full border-t border-l border-line rounded-lg overflow-hidden sm:grid-cols-2">
+            {suggestedPrompts.map((p, i) => (
               <button
                 key={p}
                 type="button"
                 onClick={() => send(p)}
-                className="group p-4 rounded-2xl border border-n-6 text-left text-sm text-n-3 transition-colors hover:border-color-1 hover:text-n-1 hover:bg-n-7/50"
+                className="group flex items-start gap-3 p-4 border-r border-b border-line text-left text-sm text-fg-2 transition-colors hover:bg-surface hover:text-fg"
               >
-                <Icon name="sparkle" size={16} className="mb-2 text-color-1" />
-                {p}
+                <span className="font-mono text-2xs text-fg-4 mt-0.5">0{i + 1}</span>
+                <span className="flex-1">{p}</span>
+                <Icon name="arrowUpRight" size={14} className="mt-0.5 text-fg-4 group-hover:text-accent" />
               </button>
             ))}
           </div>
@@ -179,8 +186,10 @@ const ChatPanel = ({ conversation, model, onChange }) => {
 
 /* ------------------------------------------------------------------ */
 
+const iconBtn = "flex items-center justify-center w-9 h-9 rounded-md text-fg-3 transition-colors hover:text-fg hover:bg-surface";
+
 const ChatApp = () => {
-  usePageMeta("Chat", "Chat with Brainwave, the AI assistant.");
+  usePageMeta("App", "Aster demo workspace: chat with citations, model picker and history.");
   const navigate = useNavigate();
   const { toast } = useToast();
   const palette = useCommandPalette();
@@ -260,48 +269,42 @@ const ChatApp = () => {
 
   const share = async () => {
     const ok = await copyToClipboard(window.location.href);
-    toast(ok ? "Share link copied (demo)" : "Couldn't copy link", { tone: ok ? "success" : "error" });
+    toast(ok ? "Share link copied (demo)" : "Could not copy the link", { tone: ok ? "success" : "error" });
   };
 
   return (
-    <div className="flex h-[100dvh] overflow-hidden bg-n-8">
-      {/* Sidebar */}
+    <div className="flex h-[100dvh] overflow-hidden bg-bg">
       <div
-        className={`fixed inset-0 z-40 bg-n-8/70 backdrop-blur-sm lg:hidden ${sidebarOpen ? "block animate-fade-in" : "hidden"}`}
+        className={`fixed inset-0 z-40 bg-black/60 lg:hidden ${sidebarOpen ? "block animate-fade-in" : "hidden"}`}
         onClick={() => setSidebarOpen(false)}
         aria-hidden="true"
       />
       <aside
         id="chat-sidebar"
-        className={`fixed inset-y-0 left-0 z-50 flex flex-col w-[18rem] bg-n-7 border-r border-n-6 transition-transform duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex flex-col w-[17rem] bg-surface border-r border-line transition-transform duration-300 lg:static lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         aria-label="Conversations"
       >
-        <div className="flex items-center justify-between p-4">
-          <Link to="/" aria-label="Brainwave home" className="block w-[9.5rem]">
-            <img src={brainwave} width={152} height={32} alt="Brainwave" />
+        <div className="flex items-center justify-between h-14 px-4">
+          <Link to="/" aria-label="Aster home">
+            <Logo size={22} />
           </Link>
-          <button
-            type="button"
-            onClick={() => setSidebarOpen(false)}
-            className="flex items-center justify-center w-9 h-9 rounded-lg text-n-4 transition-colors hover:text-n-1 hover:bg-n-6 lg:hidden"
-            aria-label="Close sidebar"
-          >
-            <Icon name="close" size={18} />
+          <button type="button" onClick={() => setSidebarOpen(false)} className={`${iconBtn} lg:hidden`} aria-label="Close sidebar">
+            <Icon name="close" size={17} />
           </button>
         </div>
 
-        <div className="px-4">
+        <div className="px-3">
           <button
             type="button"
             onClick={newChat}
-            className="flex items-center justify-center gap-2 w-full h-11 mb-3 rounded-xl bg-n-1 text-n-8 button transition-colors hover:bg-color-1 hover:text-n-1"
+            className="flex items-center gap-2 w-full h-9 mb-2 px-3 rounded-md border border-line-strong text-sm font-medium transition-colors hover:bg-raised"
           >
-            <Icon name="plus" size={16} strokeWidth={2.5} /> New chat
+            <Icon name="plus" size={15} /> New chat
           </button>
-          <div className="relative mb-2">
-            <Icon name="search" size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-n-4" />
+          <div className="relative">
+            <Icon name="search" size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-fg-4" />
             <label htmlFor="chat-search" className="sr-only">Search conversations</label>
             <input
               id="chat-search"
@@ -309,37 +312,36 @@ const ChatApp = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search chats"
-              className="w-full h-10 pl-9 pr-3 bg-n-8 border border-n-6 rounded-xl text-sm outline-none transition-colors focus:border-color-1 placeholder:text-n-4"
+              className="w-full h-9 pl-8 pr-3 bg-bg border border-line rounded-md text-sm outline-none transition-colors focus:border-fg-4 placeholder:text-fg-4"
             />
           </div>
         </div>
 
         <nav className="flex-1 overflow-y-auto scrollbar-thin px-2 pb-4" aria-label="Chat history">
-          {filtered.length === 0 && <p className="px-3 py-6 text-sm text-n-4">No conversations found.</p>}
+          {filtered.length === 0 && <p className="px-3 py-6 text-sm text-fg-3">No conversations found.</p>}
           {Object.entries(groups).map(([label, items]) => (
-            <div key={label} className="mt-4">
-              <p className="px-3 mb-2 tagline text-n-4">{label}</p>
-              <ul>
+            <div key={label} className="mt-5">
+              <p className="px-2.5 mb-1.5 t-label text-fg-4">{label}</p>
+              <ul className="space-y-0.5">
                 {items.map((c) => (
                   <li key={c.id} className="group relative">
                     <button
                       type="button"
                       onClick={() => select(c.id)}
                       aria-current={c.id === activeId ? "page" : undefined}
-                      className={`flex items-center gap-3 w-full pl-3 pr-10 py-2.5 rounded-xl text-left text-sm transition-colors ${
-                        c.id === activeId ? "bg-n-6 text-n-1" : "text-n-3 hover:bg-n-6/60 hover:text-n-1"
+                      className={`flex items-center w-full h-8 pl-2.5 pr-9 rounded-md text-left text-[0.8125rem] transition-colors ${
+                        c.id === activeId ? "bg-raised text-fg" : "text-fg-2 hover:bg-raised/60 hover:text-fg"
                       }`}
                     >
-                      <Icon name="chat" size={16} className="text-n-4" />
                       <span className="truncate">{c.title}</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => remove(c.id)}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-lg text-n-4 opacity-100 transition-opacity hover:text-color-3 hover:bg-n-7 lg:opacity-0 lg:group-hover:opacity-100 focus:opacity-100"
+                      className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center justify-center w-7 h-7 rounded-md text-fg-4 transition-opacity hover:text-danger lg:opacity-0 lg:group-hover:opacity-100 focus:opacity-100"
                       aria-label={`Delete conversation: ${c.title}`}
                     >
-                      <Icon name="trash" size={15} />
+                      <Icon name="trash" size={14} />
                     </button>
                   </li>
                 ))}
@@ -348,20 +350,24 @@ const ChatApp = () => {
           ))}
         </nav>
 
-        <div className="p-4 border-t border-n-6">
-          <Link to="/pricing" className="block p-0.25 mb-4 rounded-2xl bg-conic-gradient">
-            <span className="block p-4 bg-n-7 rounded-[0.9375rem]">
-              <span className="flex items-center gap-2 mb-1 text-sm font-semibold">
-                <Icon name="sparkle" size={16} className="text-color-2" /> Upgrade to Premium
-              </span>
-              <span className="block text-xs text-n-4">Unlimited messages & image generation.</span>
+        <div className="p-3 border-t border-line">
+          <Link to="/pricing" className="block p-3 mb-3 rounded-md border border-line transition-colors hover:border-line-strong">
+            <span className="flex items-center justify-between mb-2 text-xs">
+              <span className="text-fg-2">Free plan</span>
+              <span className="font-mono text-fg-3">28 / 40</span>
+            </span>
+            <span className="block h-1 mb-2 rounded-full bg-line">
+              <span className="block h-full w-[70%] rounded-full bg-fg-2" />
+            </span>
+            <span className="block text-xs text-fg-3">
+              Research questions this month. <span className="text-fg underline underline-offset-2 decoration-line-strong">Upgrade</span>
             </span>
           </Link>
-          <div className="flex items-center gap-3">
-            <img src={notification1} width={36} height={36} alt="" className="w-9 h-9 rounded-full object-cover" />
+          <div className="flex items-center gap-2.5">
+            <Avatar name="Demo User" size={32} />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold truncate">Demo User</p>
-              <p className="text-xs text-n-4 truncate">Basic plan</p>
+              <p className="text-sm font-medium truncate">Demo User</p>
+              <p className="text-xs text-fg-3 truncate">demo@aster.app</p>
             </div>
             <button
               type="button"
@@ -369,45 +375,50 @@ const ChatApp = () => {
                 toast("Signed out of the demo", { tone: "info" });
                 navigate("/login");
               }}
-              className="flex items-center justify-center w-9 h-9 rounded-lg text-n-4 transition-colors hover:text-n-1 hover:bg-n-6"
+              className={iconBtn}
               aria-label="Sign out"
               title="Sign out"
             >
-              <Icon name="logout" size={18} />
+              <Icon name="logout" size={16} />
             </button>
           </div>
         </div>
       </aside>
 
-      {/* Main */}
       <main className="flex flex-col flex-1 min-w-0">
-        <header className="flex items-center gap-2 h-16 px-3 border-b border-n-6 md:px-5">
+        <header className="flex items-center gap-2 h-14 px-3 border-b border-line md:px-4">
           <button
             type="button"
             onClick={() => setSidebarOpen(true)}
-            className="flex items-center justify-center w-10 h-10 rounded-xl text-n-3 transition-colors hover:text-n-1 hover:bg-n-7 lg:hidden"
+            className={`${iconBtn} lg:hidden`}
             aria-label="Open sidebar"
             aria-controls="chat-sidebar"
             aria-expanded={sidebarOpen}
           >
-            <Icon name="menu" size={20} />
+            <Icon name="menu" size={18} />
           </button>
-          <ModelPicker value={model} onChange={(m) => {
-            setModel(m);
-            toast(`Switched to ${chatModels.find((x) => x.id === m).label}`, { tone: "info" });
-          }} />
-          <p className="hidden md:block ml-2 text-sm text-n-4 truncate">{current.title}</p>
-          <div className="flex items-center gap-1 ml-auto">
-            <button type="button" onClick={palette.open} className="flex items-center justify-center w-10 h-10 rounded-xl text-n-3 transition-colors hover:text-n-1 hover:bg-n-7" aria-label="Search pages" title="Search (Ctrl/⌘ K)">
-              <Icon name="search" size={18} />
+          <ModelPicker
+            value={model}
+            onChange={(m) => {
+              setModel(m);
+              toast(`Switched to ${chatModels.find((x) => x.id === m).label}`, { tone: "info" });
+            }}
+          />
+          <p className="hidden md:block ml-2 text-[0.8125rem] text-fg-3 truncate">{current.title}</p>
+          <div className="flex items-center gap-0.5 ml-auto">
+            <button type="button" onClick={palette.open} className={iconBtn} aria-label="Search pages" title="Search (Ctrl/Cmd K)">
+              <Icon name="search" size={16} />
             </button>
-            <button type="button" onClick={share} className="flex items-center justify-center w-10 h-10 rounded-xl text-n-3 transition-colors hover:text-n-1 hover:bg-n-7" aria-label="Share conversation" title="Share">
-              <Icon name="link" size={18} />
+            <button type="button" onClick={share} className={iconBtn} aria-label="Share conversation" title="Share">
+              <Icon name="link" size={16} />
             </button>
-            <button type="button" onClick={newChat} className="flex items-center justify-center w-10 h-10 rounded-xl text-n-3 transition-colors hover:text-n-1 hover:bg-n-7 lg:hidden" aria-label="New chat">
-              <Icon name="plus" size={18} />
+            <button type="button" onClick={newChat} className={`${iconBtn} lg:hidden`} aria-label="New chat">
+              <Icon name="plus" size={16} />
             </button>
-            <Link to="/" className="hidden sm:inline-flex items-center gap-2 h-10 ml-2 px-4 rounded-xl border border-n-6 text-xs button text-n-3 transition-colors hover:text-n-1 hover:border-n-4">
+            <Link
+              to="/"
+              className="hidden sm:inline-flex items-center gap-1.5 h-8 ml-2 px-3 rounded-md border border-line text-[0.8125rem] text-fg-2 transition-colors hover:text-fg hover:border-line-strong"
+            >
               Back to site
             </Link>
           </div>

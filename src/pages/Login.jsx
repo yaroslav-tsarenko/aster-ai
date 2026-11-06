@@ -18,7 +18,7 @@ const Login = () => {
   const [state, setState] = useState("idle"); // idle | loading | success
   const redirect = useRef();
 
-  usePageMeta(mode === "login" ? "Sign in" : "Reset password", "Sign in to Brainwave to continue your conversations.");
+  usePageMeta(mode === "login" ? "Sign in" : "Reset password", "Sign in to Aster to continue with your projects.");
 
   useEffect(() => () => clearTimeout(redirect.current), []);
 
@@ -46,17 +46,17 @@ const Login = () => {
     }
 
     setState("success");
-    toast("Signed in to the demo workspace", { title: "Welcome back!" });
+    toast("Signed in to the demo workspace", { title: "Welcome back" });
     redirect.current = setTimeout(() => navigate("/app"), 1200);
   };
 
   if (mode === "reset-sent") {
     return (
       <AuthLayout title="Check your inbox" subtitle={`If an account exists for ${values.email}, we've sent a reset link.`}>
-        <div className="flex items-center justify-center w-16 h-16 mb-8 rounded-full bg-color-1/15 text-color-1 animate-pop-in">
-          <Icon name="mail" size={30} />
+        <div className="flex items-center justify-center w-11 h-11 mb-8 rounded-md border border-line-strong text-fg-2 animate-pop-in">
+          <Icon name="mail" size={20} />
         </div>
-        <Button className="w-full" onClick={() => setMode("login")}>
+        <Button className="w-full" variant="secondary" onClick={() => setMode("login")}>
           Back to sign in
         </Button>
       </AuthLayout>
@@ -65,12 +65,12 @@ const Login = () => {
 
   return (
     <AuthLayout
-      title={mode === "login" ? "Welcome back" : "Reset password"}
-      subtitle={mode === "login" ? "Sign in to continue to Brainwave." : "Enter your email and we'll send you a reset link."}
+      title={mode === "login" ? "Sign in" : "Reset password"}
+      subtitle={mode === "login" ? "Continue with your projects, sources and drafts." : "Enter your email and we will send you a reset link."}
       footer={
         <>
-          New to Brainwave?{" "}
-          <Link to="/signup" className="text-n-1 underline transition-colors hover:text-color-1">
+          New to Aster?{" "}
+          <Link to="/signup" className="text-fg underline underline-offset-4 decoration-line-strong transition-colors hover:decoration-fg">
             Create an account
           </Link>
         </>
@@ -85,12 +85,12 @@ const Login = () => {
 
       {state === "success" ? (
         <div className="py-6 text-center animate-pop-in" role="status">
-          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-5 rounded-full bg-color-4/15 text-color-4">
-            <Icon name="check" size={30} />
+          <div className="flex items-center justify-center w-11 h-11 mx-auto mb-5 rounded-md bg-accent text-accent-ink">
+            <Icon name="check" size={20} strokeWidth={2.25} />
           </div>
-          <p className="h6 mb-1">You’re signed in</p>
-          <p className="body-2 flex items-center justify-center gap-2 text-n-4">
-            <Spinner className="w-3.5 h-3.5" /> Opening your workspace…
+          <p className="t-h4 mb-1">You are signed in</p>
+          <p className="t-small flex items-center justify-center gap-2 text-fg-3">
+            <Spinner className="w-3.5 h-3.5" /> Opening your workspace
           </p>
         </div>
       ) : (
@@ -102,18 +102,18 @@ const Login = () => {
           {mode === "login" && (
             <div className="flex items-center justify-between gap-4">
               <Checkbox label="Remember me" checked={values.remember} onChange={set("remember")} />
-              <button type="button" onClick={() => setMode("reset")} className="text-sm text-n-3 underline transition-colors hover:text-color-1">
+              <button type="button" onClick={() => setMode("reset")} className="text-sm text-fg-3 underline underline-offset-4 decoration-line-strong transition-colors hover:text-fg">
                 Forgot password?
               </button>
             </div>
           )}
-          <Button type="submit" white className="w-full mt-2" disabled={state === "loading"}>
+          <Button type="submit" variant="primary" size="lg" className="w-full mt-2" disabled={state === "loading"}>
             {state === "loading" && <Spinner />}
-            {state === "loading" ? (mode === "login" ? "Signing in…" : "Sending…") : mode === "login" ? "Sign in" : "Send reset link"}
+            {state === "loading" ? (mode === "login" ? "Signing in" : "Sending") : mode === "login" ? "Sign in" : "Send reset link"}
           </Button>
           {mode === "reset" && (
-            <button type="button" onClick={() => setMode("login")} className="text-sm text-n-3 transition-colors hover:text-n-1">
-              ← Back to sign in
+            <button type="button" onClick={() => setMode("login")} className="text-sm text-fg-3 transition-colors hover:text-fg">
+              Back to sign in
             </button>
           )}
         </form>

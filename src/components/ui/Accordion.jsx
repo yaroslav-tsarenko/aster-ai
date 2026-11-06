@@ -2,7 +2,7 @@ import { useId, useState } from "react";
 import Icon from "./Icon";
 
 const AccordionItem = ({ item, open, onToggle, id }) => (
-  <div className="border-b border-n-6">
+  <div className="border-b border-line">
     <h3>
       <button
         type="button"
@@ -10,28 +10,24 @@ const AccordionItem = ({ item, open, onToggle, id }) => (
         aria-expanded={open}
         aria-controls={`${id}-panel`}
         onClick={onToggle}
-        className="flex items-center justify-between w-full gap-6 py-6 text-left transition-colors hover:text-color-1"
+        className="flex items-start justify-between w-full gap-6 py-5 text-left transition-colors hover:text-fg"
       >
-        <span className="h6 !font-normal">{item.q}</span>
-        <span
-          className={`flex items-center justify-center w-8 h-8 shrink-0 rounded-full border transition-all duration-300 ${
-            open ? "rotate-45 border-color-1 text-color-1" : "border-n-6 text-n-3"
-          }`}
-        >
-          <Icon name="plus" size={16} />
-        </span>
+        <span className={`t-h4 ${open ? "text-fg" : "text-fg-2"}`}>{item.q}</span>
+        <Icon
+          name="plus"
+          size={18}
+          className={`mt-1 text-fg-3 transition-transform duration-200 ${open ? "rotate-45" : ""}`}
+        />
       </button>
     </h3>
     <div
       id={`${id}-panel`}
       role="region"
       aria-labelledby={`${id}-btn`}
-      className={`grid transition-[grid-template-rows] duration-300 ease-out ${
-        open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-      }`}
+      className={`grid transition-[grid-template-rows] duration-200 ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
     >
       <div className="overflow-hidden">
-        <p className="body-2 pb-6 pr-12 text-n-3">{item.a}</p>
+        <p className="t-body pb-6 pr-10 text-fg-3">{item.a}</p>
       </div>
     </div>
   </div>
@@ -42,7 +38,7 @@ const Accordion = ({ items, defaultOpen = 0, className = "" }) => {
   const baseId = useId();
 
   return (
-    <div className={`border-t border-n-6 ${className}`}>
+    <div className={`border-t border-line ${className}`}>
       {items.map((item, index) => (
         <AccordionItem
           key={item.q}

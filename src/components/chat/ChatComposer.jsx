@@ -36,7 +36,7 @@ const ChatComposer = forwardRef(function ChatComposer(
     if (!recording) return;
     const t = setTimeout(() => {
       setRecording(false);
-      setValue((v) => (v ? `${v} ` : "") + "Summarise this week's Slack threads");
+      setValue((v) => (v ? `${v} ` : "") + "Summarise the evidence on four-day work weeks");
       toast("Voice note transcribed", { tone: "info" });
       areaRef.current?.focus();
     }, 2200);
@@ -53,17 +53,17 @@ const ChatComposer = forwardRef(function ChatComposer(
   return (
     <form
       onSubmit={submit}
-      className="relative flex items-end gap-2 p-2 pl-3 bg-n-7 border border-n-1/10 rounded-[1.25rem] transition-colors focus-within:border-color-1/60"
+      className="relative flex items-end gap-1 p-1.5 pl-2 bg-surface border border-line-strong rounded-lg transition-colors focus-within:border-fg-4"
     >
       {showTools && (
         <button
           type="button"
           onClick={() => toast("File uploads are disabled in this demo", { tone: "info" })}
-          className="flex items-center justify-center w-10 h-10 shrink-0 rounded-xl text-n-4 transition-colors hover:text-n-1 hover:bg-n-6"
+          className="flex items-center justify-center w-9 h-9 shrink-0 rounded-md text-fg-3 transition-colors hover:text-fg hover:bg-raised"
           aria-label="Attach a file"
           title="Attach a file"
         >
-          <Icon name="paperclip" size={20} />
+          <Icon name="paperclip" size={17} />
         </button>
       )}
       <label className="sr-only" htmlFor={inputId}>
@@ -79,42 +79,42 @@ const ChatComposer = forwardRef(function ChatComposer(
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) submit(e);
         }}
-        placeholder={recording ? "Listening…" : placeholder || "Ask Brainwave anything…"}
-        className="flex-1 min-w-0 py-2.5 bg-transparent resize-none outline-none focus-visible:outline-none text-n-1 placeholder:text-n-4 text-sm md:text-base leading-6 scrollbar-thin"
+        placeholder={recording ? "Listening" : placeholder || "Ask about your sources, or start a draft"}
+        className="flex-1 min-w-0 py-1.5 px-1 bg-transparent resize-none outline-none focus-visible:outline-none text-fg placeholder:text-fg-4 text-[0.9375rem] leading-6 scrollbar-thin"
       />
       {showTools && (
         <button
           type="button"
           onClick={() => setRecording((r) => !r)}
-          className={`flex items-center justify-center w-10 h-10 shrink-0 rounded-xl transition-colors ${
-            recording ? "bg-color-3 text-n-1 animate-pulse-ring" : "text-n-4 hover:text-n-1 hover:bg-n-6"
+          className={`flex items-center justify-center w-9 h-9 shrink-0 rounded-md transition-colors ${
+            recording ? "bg-danger text-bg animate-rec" : "text-fg-3 hover:text-fg hover:bg-raised"
           }`}
           aria-label={recording ? "Stop voice input" : "Start voice input"}
           aria-pressed={recording}
           title="Voice input"
         >
-          <Icon name="mic" size={20} />
+          <Icon name="mic" size={17} />
         </button>
       )}
       {busy ? (
         <button
           type="button"
           onClick={onStop}
-          className="flex items-center justify-center w-10 h-10 shrink-0 rounded-xl bg-n-1 text-n-8 transition-transform hover:scale-105"
+          className="flex items-center justify-center w-9 h-9 shrink-0 rounded-md bg-fg text-bg transition-colors hover:bg-white"
           aria-label="Stop generating"
           title="Stop generating"
         >
-          <Icon name="stop" size={18} />
+          <Icon name="stop" size={13} strokeWidth={2.5} className="fill-current" />
         </button>
       ) : (
         <button
           type="submit"
           disabled={!value.trim()}
-          className="flex items-center justify-center w-10 h-10 shrink-0 rounded-xl bg-color-1 text-n-1 transition-all hover:scale-105 disabled:opacity-40 disabled:hover:scale-100"
+          className="flex items-center justify-center w-9 h-9 shrink-0 rounded-md bg-accent text-accent-ink transition-colors hover:bg-accent-hover disabled:bg-raised disabled:text-fg-4"
           aria-label="Send message"
           title="Send message"
         >
-          <Icon name="arrowUp" size={20} strokeWidth={2.25} />
+          <Icon name="arrowUp" size={17} strokeWidth={2.25} />
         </button>
       )}
     </form>

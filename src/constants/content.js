@@ -1,73 +1,69 @@
-import {
-  benefitImage2,
-  hero,
-  notification1,
-  notification2,
-  notification3,
-  notification4,
-  robot,
-  roadmap2,
-  roadmap3,
-  roadmap4,
-  service1,
-  service2,
-  service3,
-} from "../assets";
-
 /* ------------------------------------------------------------------ */
-/*  Social proof                                                       */
+/*  Social proof (fictional people and organisations)                  */
 /* ------------------------------------------------------------------ */
 
 export const testimonials = [
   {
     id: "0",
-    name: "Maya Thompson",
-    role: "Product Designer, Lumen",
-    avatar: notification1,
-    text: "Brainwave replaced three tools in my workflow. I sketch an idea, ask for copy and get a mockup before my coffee gets cold.",
+    name: "Ines Marchetti",
+    role: "Policy researcher, Halden Institute",
+    text: "The citations are what sold me. I can hand a brief to a colleague and they can check every line in a minute instead of an afternoon.",
   },
   {
     id: "1",
-    name: "Daniel Okafor",
-    role: "Founder, Stackwise",
-    avatar: notification2,
-    text: "The answers are fast and actually useful. Our support team cut first-response time in half in the first month.",
+    name: "Tom Achterberg",
+    role: "Managing editor, Orbital Press",
+    text: "We use it for first drafts and copy edits. The tracked suggestions mean nobody has to wonder what the model quietly changed.",
   },
   {
     id: "2",
-    name: "Sofia Marin",
-    role: "Content Lead, Northwind",
-    avatar: notification3,
-    text: "The image studio is ridiculous. We generate a full week of social graphics in one afternoon now.",
+    name: "Priya Nandakumar",
+    role: "Brand designer, Kettle Studio",
+    text: "Presets fixed my biggest problem with image tools: the fifth image never matched the first. Now a series actually looks like a series.",
   },
   {
     id: "3",
-    name: "Kenji Watanabe",
-    role: "Staff Engineer, Orbit",
-    avatar: notification4,
-    text: "I use it as a rubber duck that talks back. Code explanations are clear and it never gets tired of my questions.",
+    name: "Jonas Lindqvist",
+    role: "PhD candidate, Northfield University",
+    text: "I loaded 180 papers into one project. It does not replace reading them, but it tells me where to read, and that is a lot.",
   },
   {
     id: "4",
-    name: "Amara Diallo",
-    role: "Marketing Manager, Brightly",
-    avatar: notification2,
-    text: "Slack summaries alone are worth the subscription. I finally start Mondays without 400 unread messages.",
+    name: "Rachel Owusu",
+    role: "Content lead, Mercer & Lane",
+    text: "Our style guide lives in Aster now. New writers sound like us in their first week, which used to take a quarter.",
   },
   {
     id: "5",
-    name: "Lucas Brennan",
-    role: "Student, TU Delft",
-    avatar: notification3,
-    text: "It explains concepts the way my professors wish they could. Exam season is way less scary now.",
+    name: "Daniel Sato",
+    role: "Independent analyst",
+    text: "It says when the sources do not support an answer. That one behaviour is why I trust it with client work.",
   },
 ];
 
 export const stats = [
-  { id: "0", value: 2.4, suffix: "M", label: "Monthly active users", decimals: 1 },
-  { id: "1", value: 180, suffix: "M", label: "Messages answered", decimals: 0 },
-  { id: "2", value: 120, suffix: "+", label: "Countries", decimals: 0 },
-  { id: "3", value: 4.9, suffix: "/5", label: "Average app rating", decimals: 1 },
+  { id: "0", value: 41, suffix: "k", label: "Researchers and writers each week", decimals: 0 },
+  { id: "1", value: 1.9, suffix: "M", label: "Sources cited last month", decimals: 1 },
+  { id: "2", value: 31, suffix: "", label: "Languages supported", decimals: 0 },
+  { id: "3", value: 4.8, suffix: "/5", label: "Average rating, 2,300 reviews", decimals: 1 },
+];
+
+// Usage dashboard sample data (credits used per day, last 14 days)
+export const usageDaily = [
+  { day: "Oct 24", research: 42, writing: 28, images: 12 },
+  { day: "Oct 25", research: 18, writing: 12, images: 4 },
+  { day: "Oct 26", research: 9, writing: 6, images: 2 },
+  { day: "Oct 27", research: 55, writing: 31, images: 16 },
+  { day: "Oct 28", research: 61, writing: 40, images: 22 },
+  { day: "Oct 29", research: 48, writing: 36, images: 9 },
+  { day: "Oct 30", research: 66, writing: 29, images: 26 },
+  { day: "Oct 31", research: 39, writing: 22, images: 31 },
+  { day: "Nov 1", research: 14, writing: 9, images: 3 },
+  { day: "Nov 2", research: 11, writing: 15, images: 6 },
+  { day: "Nov 3", research: 58, writing: 44, images: 18 },
+  { day: "Nov 4", research: 72, writing: 38, images: 21 },
+  { day: "Nov 5", research: 64, writing: 47, images: 14 },
+  { day: "Nov 6", research: 51, writing: 33, images: 24 },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -76,28 +72,28 @@ export const stats = [
 
 export const pricingFaq = [
   {
-    q: "Is the Basic plan really free?",
-    a: "Yes. Basic is free forever with 100 messages and 10 image generations every month. No credit card required to sign up.",
+    q: "Is the Free plan actually free?",
+    a: "Yes. Free includes 40 research questions and 20 images a month, with no card required. Limits reset on the first of each month.",
+  },
+  {
+    q: "What counts as a research question?",
+    a: "One message you send in a project with sources attached. Follow-ups count as new questions; rewrites and edits in the writing view do not.",
   },
   {
     q: "How does annual billing work?",
-    a: "Annual plans are billed once a year and save you 20% compared with paying monthly. You can switch between monthly and annual at any time from your account settings.",
+    a: "Annual plans are billed once a year and cost about 17% less than paying monthly. You can switch at any time; we prorate the difference.",
   },
   {
     q: "Can I cancel at any time?",
-    a: "Absolutely. You can cancel in two clicks and keep access until the end of your billing period. We never lock your data: export everything whenever you like.",
+    a: "Yes, from Settings, in two clicks. You keep access until the end of the billing period and can export every project before you go.",
   },
   {
-    q: "Do you offer discounts for teams?",
-    a: "Teams of 10 or more seats get automatic volume discounts. Use the seat calculator on this page to see your price, or contact sales for Enterprise pricing.",
+    q: "Is my data used to train models?",
+    a: "No. Files, conversations and images are never used for training, on any plan. Team workspaces can also choose EU or US hosting.",
   },
   {
-    q: "Is my data used to train your models?",
-    a: "No. Conversations are never used for training unless you explicitly opt in. Enterprise workspaces can also choose their data residency region.",
-  },
-  {
-    q: "Do you have student or non-profit pricing?",
-    a: "Yes. Students and registered non-profits get 50% off Premium. Reach out through the contact page with proof of eligibility.",
+    q: "Do you offer education or non-profit pricing?",
+    a: "Students, teachers and registered non-profits get Pro at 50% off. Write to us from the contact page with proof of eligibility.",
   },
 ];
 
@@ -108,40 +104,45 @@ export const pricingFaq = [
 export const tourSteps = [
   {
     id: "0",
-    title: "Create your account",
-    text: "Sign up with your email in under 30 seconds. No credit card, no setup wizard, just a blank chat waiting for your first question.",
-    image: robot,
-    tip: "Tip: invite teammates later from Settings, Workspace.",
+    visual: "sources",
+    title: "Create a project and add sources",
+    text: "Drop in PDFs, paste links or connect a Drive folder. Aster indexes them privately in a few seconds per file.",
+    tip: "Tip: drag a whole folder onto the sources panel to add every file at once.",
   },
   {
     id: "1",
-    title: "Ask your first question",
-    text: "Type anything or pick a suggested prompt. Brainwave streams the answer in real time and keeps the context for follow-ups.",
-    image: service1,
-    tip: "Tip: press / to focus the message box from anywhere.",
+    visual: "chat",
+    title: "Ask, and check the citations",
+    text: "Ask in plain language. Each claim in the answer carries a numbered citation that opens the exact passage.",
+    tip: "Tip: press / anywhere in the app to focus the message box.",
   },
   {
     id: "2",
-    title: "Generate and edit images",
-    text: "Switch to the image studio, describe what you want and pick a style. Refine it with natural-language edits until it is perfect.",
-    image: service2,
-    tip: "Tip: add \"--wide\" to any prompt for a 16:9 result.",
+    visual: "write",
+    title: "Turn findings into a draft",
+    text: "Ask for a brief, a section or an email. Edits arrive as tracked suggestions that follow your style guide.",
+    tip: "Tip: select text and press E to ask for an edit on just that passage.",
   },
   {
     id: "3",
-    title: "Connect your tools",
-    text: "Link Slack, Notion, Figma and more so Brainwave can summarise threads, draft docs and critique designs where you work.",
-    image: service3,
-    tip: "Tip: every integration can be disconnected with one click.",
+    visual: "images",
+    title: "Add images from a preset",
+    text: "Generate four variations from a saved preset, then upscale the one you like. Same look, every time.",
+    tip: "Tip: add --wide to any prompt for a 16:9 result.",
   },
 ];
 
+/* ------------------------------------------------------------------ */
+/*  Image studio                                                       */
+/* ------------------------------------------------------------------ */
+
+// Each style is a palette used by the procedural <Artwork /> renderer.
 export const imageStyles = [
-  { id: "cinematic", label: "Cinematic", filter: "contrast(1.1) saturate(1.1)" },
-  { id: "neon", label: "Neon", filter: "hue-rotate(250deg) saturate(1.6) contrast(1.1)" },
-  { id: "anime", label: "Anime", filter: "saturate(1.8) brightness(1.05)" },
-  { id: "noir", label: "Noir", filter: "grayscale(1) contrast(1.25)" },
-  { id: "vapor", label: "Vaporwave", filter: "hue-rotate(140deg) saturate(1.4)" },
+  { id: "editorial", label: "Editorial" },
+  { id: "film", label: "Warm film" },
+  { id: "riso", label: "Risograph" },
+  { id: "nocturne", label: "Nocturne" },
+  { id: "mono", label: "Monochrome" },
 ];
 
 export const imageAspects = [
@@ -150,65 +151,57 @@ export const imageAspects = [
   { id: "16:9", label: "16:9", className: "aspect-video" },
 ];
 
-export const generatedImagePool = [
-  service1,
-  service2,
-  service3,
-  robot,
-  hero,
-  roadmap2,
-  roadmap3,
-  roadmap4,
-];
+// Scenes the procedural renderer knows how to draw.
+export const generatedImagePool = ["dunes", "peaks", "bloom", "city", "orbit", "contour", "still", "waves"];
 
 export const imagePromptIdeas = [
-  "A friendly robot reading a book in a neon library",
-  "Retro-futuristic city skyline at dusk",
-  "Astronaut floating above a purple ocean",
-  "Minimal product shot of headphones on marble",
+  "Low sun over layered sand dunes, quiet editorial cover",
+  "A single aster flower, top view, flat shapes",
+  "City blocks at dusk, lit windows, wide framing",
+  "Topographic map of an imaginary island",
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Roadmap changelog                                                  */
+/*  Changelog                                                          */
 /* ------------------------------------------------------------------ */
 
 export const changelog = [
   {
-    version: "2.4.0",
+    version: "3.4.0",
     date: "October 28, 2026",
-    title: "Gamification preview",
+    title: "Shared projects preview",
     items: [
-      { type: "New", text: "Daily streaks and achievement badges (beta)." },
-      { type: "Improved", text: "Conversation search is now 3x faster." },
-      { type: "Fixed", text: "Images occasionally failing to load on Safari." },
+      { type: "New", text: "Invite up to five collaborators to a project (beta)." },
+      { type: "Improved", text: "Source indexing is about twice as fast for large PDFs." },
+      { type: "Fixed", text: "Citations could point to the previous page in two-column layouts." },
     ],
   },
   {
-    version: "2.3.0",
+    version: "3.3.0",
     date: "September 16, 2026",
-    title: "Image generation v2",
+    title: "Voice and presets",
     items: [
-      { type: "New", text: "Style presets and aspect ratio controls in the image studio." },
-      { type: "New", text: "In-painting: select an area and describe the change." },
-      { type: "Improved", text: "Output resolution increased to 2048px." },
+      { type: "New", text: "Voice dictation in 30 languages, on web and desktop." },
+      { type: "New", text: "Image presets can now be shared across a workspace." },
+      { type: "Improved", text: "Upscaling to 2048 px keeps fine text legible." },
     ],
   },
   {
-    version: "2.2.0",
+    version: "3.2.0",
+    date: "August 5, 2026",
+    title: "Tables from PDFs",
+    items: [
+      { type: "New", text: "Ask about tables in PDFs and scanned reports." },
+      { type: "Improved", text: "Keyboard navigation across the sources panel." },
+    ],
+  },
+  {
+    version: "3.1.0",
     date: "July 9, 2026",
-    title: "Make it yours",
+    title: "Citation export",
     items: [
-      { type: "New", text: "Custom assistant names, avatars and personalities." },
-      { type: "Improved", text: "Dark theme contrast and keyboard navigation." },
-    ],
-  },
-  {
-    version: "2.1.0",
-    date: "March 21, 2026",
-    title: "Talk to Brainwave",
-    items: [
-      { type: "New", text: "Voice conversations with 30+ natural voices." },
-      { type: "Fixed", text: "Copy button now preserves code formatting." },
+      { type: "New", text: "Export sources as BibTeX, RIS, APA, Chicago or MLA." },
+      { type: "Fixed", text: "Copy now preserves code block formatting." },
     ],
   },
 ];
@@ -218,35 +211,35 @@ export const changelog = [
 /* ------------------------------------------------------------------ */
 
 export const team = [
-  { id: "0", name: "Elena Novak", role: "Co-founder & CEO", avatar: notification1 },
-  { id: "1", name: "Marcus Lee", role: "Co-founder & CTO", avatar: notification2 },
-  { id: "2", name: "Priya Raman", role: "Head of Design", avatar: notification3 },
-  { id: "3", name: "Tomás García", role: "Head of AI Research", avatar: notification4 },
+  { id: "0", name: "Lena Hartmann", role: "Co-founder, CEO", bio: "Previously ran research operations at a policy think tank." },
+  { id: "1", name: "Mateo Ruiz", role: "Co-founder, CTO", bio: "Built search infrastructure for a large academic publisher." },
+  { id: "2", name: "Aiko Brennan", role: "Head of Design", bio: "Designs tools for people who read for a living." },
+  { id: "3", name: "Samuel Okoye", role: "Head of Models", bio: "Works on retrieval, evaluation and citation accuracy." },
 ];
 
 export const values = [
   {
     id: "0",
-    title: "Curiosity first",
-    text: "We build the assistant we always wanted: one that makes learning and creating feel effortless.",
+    title: "Show the work",
+    text: "An answer you cannot check is a rumour. Aster cites, links and admits gaps so you can trust what you publish.",
   },
   {
     id: "1",
-    title: "Privacy is a feature",
-    text: "Trust is earned. We collect as little as possible and are transparent about everything else.",
+    title: "Quiet tools",
+    text: "Software you use all day should stay out of the way. We remove features more often than we add them.",
   },
   {
     id: "2",
-    title: "Ship, learn, repeat",
-    text: "Small teams, short cycles and a public roadmap that our community helps shape every week.",
+    title: "Your work is not our data",
+    text: "We do not train on customer content. It keeps the product honest and the conversations with legal short.",
   },
 ];
 
 export const milestones = [
-  { year: "2023", text: "Brainwave starts as a weekend project between two friends." },
-  { year: "2024", text: "Public beta launches; 100k people join the waitlist in a week." },
-  { year: "2025", text: "Series A, native apps and the first eight integrations." },
-  { year: "2026", text: "Voice, image generation v2 and 2.4M monthly users." },
+  { year: "2023", text: "Lena and Mateo build a citation checker for a think tank's weekly briefings." },
+  { year: "2024", text: "Private beta with 40 research teams. Aster gets projects and the sources panel." },
+  { year: "2025", text: "Writing view, style guides and the first version of the image studio." },
+  { year: "2026", text: "Aster 2, image presets, voice and shared projects. 41,000 weekly users." },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -254,10 +247,10 @@ export const milestones = [
 /* ------------------------------------------------------------------ */
 
 export const perks = [
-  { id: "0", title: "Remote-first", text: "Work from anywhere within ±4h of CET, with yearly team offsites." },
-  { id: "1", title: "Learning budget", text: "$2,000 a year for courses, books and conferences." },
-  { id: "2", title: "Health & wellbeing", text: "Private health insurance and a monthly wellness stipend." },
-  { id: "3", title: "Real ownership", text: "Meaningful equity for every full-time team member." },
+  { id: "0", title: "Remote in Europe", text: "Work within two hours of CET. We meet in person twice a year." },
+  { id: "1", title: "Four-day focus weeks", text: "One week a month has no recurring meetings at all." },
+  { id: "2", title: "Learning budget", text: "€1,500 a year for books, courses and conferences." },
+  { id: "3", title: "Equity", text: "Every full-time role includes meaningful stock options." },
 ];
 
 export const jobs = [
@@ -267,37 +260,35 @@ export const jobs = [
     department: "Engineering",
     location: "Remote, Europe",
     type: "Full-time",
-    salary: "€85k – €110k",
-    summary:
-      "Craft the fast, delightful interfaces millions of people use to talk to Brainwave every day.",
+    salary: "€80k – €105k",
+    summary: "Build the reading and writing surfaces people use for hours a day: the sources panel, the editor and the image studio.",
     responsibilities: [
-      "Own major surfaces of the web app, from chat to the image studio",
-      "Build a shared component library with our design team",
-      "Push performance budgets and accessibility standards",
+      "Own core surfaces of the web app end to end",
+      "Keep the interface fast with large documents and long conversations",
+      "Work closely with design on interaction details and accessibility",
     ],
     requirements: [
       "5+ years building production React applications",
-      "Deep understanding of browser performance and accessibility",
-      "A good eye for motion and interaction details",
+      "Strong grasp of browser performance and accessibility",
+      "Care for typography and small interaction details",
     ],
   },
   {
-    slug: "machine-learning-engineer",
-    title: "Machine Learning Engineer",
-    department: "AI Research",
-    location: "Remote, Worldwide",
+    slug: "retrieval-engineer",
+    title: "Retrieval Engineer",
+    department: "Models",
+    location: "Remote, Europe",
     type: "Full-time",
-    salary: "$140k – $180k",
-    summary:
-      "Train, evaluate and ship the models that power Brainwave's answers, voice and images.",
+    salary: "€95k – €125k",
+    summary: "Improve how Aster finds, ranks and cites passages across millions of customer documents.",
     responsibilities: [
-      "Fine-tune and evaluate large language and diffusion models",
-      "Design evaluation suites that reflect real user needs",
-      "Collaborate with product to bring research into production",
+      "Design and evaluate retrieval and re-ranking pipelines",
+      "Build citation accuracy benchmarks from real use cases",
+      "Ship improvements behind measured experiments",
     ],
     requirements: [
-      "Strong Python and PyTorch experience",
-      "Experience training or fine-tuning large models",
+      "Production experience with search or retrieval systems",
+      "Solid Python and evaluation methodology",
       "Clear written communication",
     ],
   },
@@ -305,40 +296,38 @@ export const jobs = [
     slug: "product-designer",
     title: "Product Designer",
     department: "Design",
-    location: "Lisbon or Remote",
+    location: "Berlin or Remote",
     type: "Full-time",
     salary: "€70k – €90k",
-    summary:
-      "Shape how people collaborate with AI, from first prompt to finished project.",
+    summary: "Design calm, dense, keyboard-friendly tools for people whose job is reading and writing.",
     responsibilities: [
-      "Lead end-to-end design for new product areas",
-      "Prototype interactions and test them with real users",
-      "Evolve the Brainwave design language",
+      "Lead design for new areas such as shared projects",
+      "Prototype in code or Figma and test with real users",
+      "Maintain and extend the Aster design system",
     ],
     requirements: [
-      "A portfolio that shows strong interaction and visual design",
-      "Comfort prototyping in Figma, Protopie or code",
-      "Experience designing for complex, data-rich products",
+      "A portfolio showing interaction and visual craft",
+      "Experience with data-rich or text-heavy products",
+      "Comfort presenting and defending decisions",
     ],
   },
   {
-    slug: "developer-advocate",
-    title: "Developer Advocate",
-    department: "Marketing",
-    location: "Remote, Americas",
-    type: "Full-time",
-    salary: "$110k – $135k",
-    summary:
-      "Help developers build amazing things on top of the Brainwave platform and plugin marketplace.",
+    slug: "technical-writer",
+    title: "Technical Writer",
+    department: "Product",
+    location: "Remote, Europe",
+    type: "Part-time",
+    salary: "€45k – €55k pro rata",
+    summary: "Write the docs, guides and release notes that help people get real work done with Aster.",
     responsibilities: [
-      "Create tutorials, demos and sample apps",
-      "Speak at meetups and conferences",
-      "Turn community feedback into product improvements",
+      "Own the help centre and API documentation",
+      "Write release notes for every version",
+      "Turn support questions into better guides",
     ],
     requirements: [
-      "Hands-on experience building with APIs",
-      "A track record of technical writing or speaking",
-      "Genuine love for developer communities",
+      "A portfolio of clear technical writing",
+      "Comfort reading code and testing APIs",
+      "Excellent English; a second European language is a plus",
     ],
   },
   {
@@ -346,19 +335,18 @@ export const jobs = [
     title: "Customer Success Manager",
     department: "Operations",
     location: "Remote, Europe",
-    type: "Contract",
-    salary: "€50k – €65k",
-    summary:
-      "Be the trusted partner for our Enterprise customers as they roll Brainwave out to their teams.",
+    type: "Full-time",
+    salary: "€55k – €68k",
+    summary: "Help research and editorial teams roll Aster out and get value from it in their first 90 days.",
     responsibilities: [
-      "Onboard new Enterprise workspaces",
-      "Run quarterly business reviews",
-      "Advocate for customer needs inside the product team",
+      "Onboard new Team workspaces",
+      "Run quarterly reviews with larger customers",
+      "Bring customer feedback into product planning",
     ],
     requirements: [
       "3+ years in customer success for a SaaS product",
-      "Excellent communication in English",
-      "Comfortable with analytics and reporting tools",
+      "Experience with research, publishing or agency teams",
+      "Comfortable with usage data and reporting",
     ],
   },
 ];
@@ -371,122 +359,112 @@ export const blogCategories = ["All", "Product", "Guides", "Engineering", "Compa
 
 export const blogPosts = [
   {
-    slug: "introducing-image-generation-v2",
-    title: "Introducing image generation v2",
-    excerpt:
-      "Sharper output, style presets and in-painting. Here is everything that is new in the Brainwave image studio.",
-    category: "Product",
-    date: "Sep 16, 2026",
-    readTime: "5 min read",
-    cover: service2,
-    author: { name: "Priya Raman", role: "Head of Design", avatar: notification3 },
+    slug: "how-aster-cites-sources",
+    title: "How Aster decides what to cite",
+    excerpt: "A walk through retrieval, passage ranking and the checks that run before a citation reaches your screen.",
+    category: "Engineering",
+    date: "Oct 14, 2026",
+    readTime: "9 min read",
+    cover: { scene: "contour", style: "editorial", seed: 4 },
+    author: { name: "Samuel Okoye", role: "Head of Models" },
     body: [
-      { type: "p", text: "When we launched the image studio last year, we were blown away by what you created. Today we are shipping the biggest upgrade yet: a new diffusion pipeline that produces images four times sharper, with far better control over style and composition." },
-      { type: "h2", text: "Style presets" },
-      { type: "p", text: "Pick from Cinematic, Neon, Anime, Noir and Vaporwave to instantly change the look of your image. Presets are tuned by our design team and work with any prompt." },
-      { type: "h2", text: "In-painting inside the chat" },
-      { type: "p", text: "Select any region of an image and describe what should change. Swap a background, add a character or fix a detail without starting over." },
-      { type: "quote", text: "The fastest way to get an image right is to have a conversation about it." },
-      { type: "h2", text: "What's next" },
-      { type: "list", items: ["Video generation for Premium users", "Brand kits with your colours and fonts", "Batch generation for social campaigns"] },
+      { type: "p", text: "Every claim in an Aster answer carries a citation. That sounds simple, and it is the hardest thing we do. This post explains the pipeline behind it." },
+      { type: "h2", text: "Retrieval is only the first step" },
+      { type: "p", text: "When you ask a question, we retrieve candidate passages from your project, then re-rank them with a smaller model trained to judge whether a passage actually supports a statement." },
+      { type: "code", text: "candidates: 120 passages\nafter re-rank: 14 passages\ncited in answer: 6 passages" },
+      { type: "h2", text: "A second pass for every claim" },
+      { type: "p", text: "After the answer is drafted, each sentence is checked against the passage it cites. If support is weak, the sentence is rewritten or removed, and Aster says that the sources do not cover it." },
+      { type: "quote", text: "We would rather show a gap than hide one." },
     ],
   },
   {
-    slug: "10-prompts-to-boost-productivity",
-    title: "10 prompts that will boost your productivity",
-    excerpt:
-      "From inbox zero to meeting prep, these battle-tested prompts save our team hours every week.",
+    slug: "a-research-brief-in-30-minutes",
+    title: "A research brief in 30 minutes",
+    excerpt: "A practical workflow for turning a folder of reports into a two-page brief your team can check.",
     category: "Guides",
     date: "Oct 2, 2026",
     readTime: "7 min read",
-    cover: service1,
-    author: { name: "Elena Novak", role: "Co-founder & CEO", avatar: notification1 },
+    cover: { scene: "still", style: "film", seed: 2 },
+    author: { name: "Lena Hartmann", role: "Co-founder, CEO" },
     body: [
-      { type: "p", text: "Great prompts are like keyboard shortcuts for your brain. We asked everyone at Brainwave to share the prompts they use most, and these ten came up again and again." },
-      { type: "h2", text: "Planning your day" },
-      { type: "code", text: "Here are my tasks for today: [paste]. Group them by energy level and suggest an order." },
-      { type: "p", text: "Brainwave is surprisingly good at spotting which tasks can be batched together and which ones deserve your sharpest hours." },
-      { type: "h2", text: "Writing faster" },
-      { type: "list", items: ["Turn bullet points into a friendly email", "Rewrite this paragraph to be half as long", "Give me three subject lines for this newsletter"] },
-      { type: "h2", text: "Learning anything" },
-      { type: "p", text: "Ask Brainwave to explain a concept at three levels: to a child, to a student and to an expert. Reading all three is a shortcut to real understanding." },
+      { type: "p", text: "Most briefs follow the same shape: what we know, what we do not, and what it means for us. Here is how to get there quickly without losing rigour." },
+      { type: "h2", text: "1. Start with a narrow question" },
+      { type: "code", text: "What does the evidence say about X in Y, published after 2020?" },
+      { type: "p", text: "A narrow question gives Aster something it can answer from your sources instead of something it has to guess at." },
+      { type: "h2", text: "2. Read the citations, not just the answer" },
+      { type: "list", items: ["Open every citation that supports a key number", "Ask for counter-evidence explicitly", "Pin the claims you will rely on"] },
+      { type: "h2", text: "3. Draft with the brief template" },
+      { type: "p", text: "Ask for a draft using the project brief and your style guide. Accept the suggestions you agree with and edit the rest yourself." },
     ],
   },
   {
-    slug: "how-we-made-responses-3x-faster",
-    title: "How we made responses 3x faster",
-    excerpt:
-      "A look under the hood at the edge inference network that powers Brainwave's streaming answers.",
-    category: "Engineering",
+    slug: "image-presets",
+    title: "Image presets, and why consistency matters",
+    excerpt: "Presets store palette, style and framing so a series of images reads as one. Here is what is new.",
+    category: "Product",
+    date: "Sep 16, 2026",
+    readTime: "5 min read",
+    cover: { scene: "dunes", style: "riso", seed: 7 },
+    author: { name: "Aiko Brennan", role: "Head of Design" },
+    body: [
+      { type: "p", text: "The most common complaint about image tools is not quality. It is drift: the fifth image in a series no longer matches the first. Presets are our answer." },
+      { type: "h2", text: "What a preset stores" },
+      { type: "list", items: ["Palette and contrast", "Style and level of detail", "Aspect ratio and framing", "Negative prompts you always use"] },
+      { type: "h2", text: "Shared across a workspace" },
+      { type: "p", text: "On Team plans, presets live at the workspace level, so a designer can define the look once and everyone else can use it." },
+      { type: "quote", text: "A good preset is a style guide you can run." },
+    ],
+  },
+  {
+    slug: "designing-a-calm-interface",
+    title: "Designing a calm interface for long sessions",
+    excerpt: "Why Aster uses graphite surfaces, one accent colour and very little motion.",
+    category: "Product",
     date: "Aug 21, 2026",
-    readTime: "9 min read",
-    cover: service3,
-    author: { name: "Marcus Lee", role: "Co-founder & CTO", avatar: notification2 },
+    readTime: "6 min read",
+    cover: { scene: "waves", style: "mono", seed: 3 },
+    author: { name: "Aiko Brennan", role: "Head of Design" },
     body: [
-      { type: "p", text: "Latency is a feature. Every 100ms we shave off the time to first token measurably increases how much people enjoy using Brainwave. This post explains how we went from 900ms to under 300ms." },
-      { type: "h2", text: "Moving inference to the edge" },
-      { type: "p", text: "We now run smaller draft models in twelve regions and only route complex reasoning to our central clusters. Most requests never leave your continent." },
-      { type: "code", text: "p50 time-to-first-token: 280ms\np95 time-to-first-token: 610ms" },
-      { type: "h2", text: "Speculative decoding" },
-      { type: "p", text: "A fast draft model proposes several tokens at once and the larger model verifies them in a single pass. When the draft is right, which is most of the time, you get multiple tokens for the price of one." },
-      { type: "quote", text: "The best optimisation is the request you never have to make." },
+      { type: "p", text: "People spend hours in Aster reading dense material. The interface should feel like a quiet desk, not a dashboard competing for attention." },
+      { type: "h2", text: "One accent, used rarely" },
+      { type: "p", text: "Lime marks the one thing you can act on next: the send button, the selected citation, the active filter. Everything else is graphite." },
+      { type: "h2", text: "Motion that explains" },
+      { type: "p", text: "A caret shows text is streaming. A progress line shows an image is rendering. If motion does not explain something, we remove it, and we respect reduced-motion settings everywhere." },
     ],
   },
   {
-    slug: "brainwave-raises-series-a",
-    title: "Brainwave raises a $24M Series A",
-    excerpt:
-      "We are doubling down on privacy, native apps and the integrations you asked for most.",
+    slug: "aster-seed-round",
+    title: "Aster raises a €9M seed round",
+    excerpt: "We are hiring in retrieval and design, and opening a Frankfurt region for EU customers.",
     category: "Company",
     date: "Jun 4, 2026",
     readTime: "3 min read",
-    cover: hero,
-    author: { name: "Elena Novak", role: "Co-founder & CEO", avatar: notification1 },
+    cover: { scene: "orbit", style: "nocturne", seed: 5 },
+    author: { name: "Lena Hartmann", role: "Co-founder, CEO" },
     body: [
-      { type: "p", text: "Today we are excited to share that Brainwave has raised a $24M Series A to help everyone think, write and create with AI." },
+      { type: "p", text: "Today we are sharing that Aster has raised a €9M seed round to build the most trustworthy assistant for research and writing." },
       { type: "h2", text: "What the funding is for" },
-      { type: "list", items: ["Growing our research team", "Native apps for every platform", "A public plugin marketplace", "Regional data residency"] },
-      { type: "p", text: "Most importantly, nothing changes about our commitment to privacy: your conversations remain yours." },
+      { type: "list", items: ["Growing the retrieval and evaluation team", "An EU hosting region in Frankfurt", "Shared projects for teams", "A public API"] },
+      { type: "p", text: "Nothing changes about how we treat your data: we do not train on it, and you can delete it at any time." },
     ],
   },
   {
-    slug: "designing-a-calm-ai-interface",
-    title: "Designing a calm AI interface",
-    excerpt:
-      "Why we chose dark surfaces, soft gradients and subtle motion for an assistant you use all day.",
-    category: "Product",
-    date: "May 12, 2026",
-    readTime: "6 min read",
-    cover: robot,
-    author: { name: "Priya Raman", role: "Head of Design", avatar: notification3 },
-    body: [
-      { type: "p", text: "An assistant you use for hours a day should feel like a quiet studio, not a casino. Here are the principles behind the Brainwave interface." },
-      { type: "h2", text: "Dark, but never flat" },
-      { type: "p", text: "Our surfaces are layered in subtle shades of violet so depth is communicated without heavy shadows. Gradients are reserved for moments that matter." },
-      { type: "h2", text: "Motion with meaning" },
-      { type: "p", text: "Animations explain what is happening: a streaming caret, a progress ring while an image renders. If motion is not helping, it goes. And it always respects your reduced-motion setting." },
-      { type: "quote", text: "Good interfaces feel inevitable." },
-    ],
-  },
-  {
-    slug: "getting-started-with-integrations",
-    title: "Getting started with integrations",
-    excerpt:
-      "Connect Slack, Notion and Figma in minutes and let Brainwave work where your team already does.",
+    slug: "connecting-zotero",
+    title: "Connecting Zotero in five minutes",
+    excerpt: "Sync a collection, ask questions across it and insert citations in your preferred style.",
     category: "Guides",
     date: "Apr 3, 2026",
     readTime: "4 min read",
-    cover: benefitImage2,
-    author: { name: "Tomás García", role: "Head of AI Research", avatar: notification4 },
+    cover: { scene: "bloom", style: "editorial", seed: 9 },
+    author: { name: "Mateo Ruiz", role: "Co-founder, CTO" },
     body: [
-      { type: "p", text: "Integrations turn Brainwave from a chat window into a teammate. This guide walks you through connecting your first tool." },
-      { type: "h2", text: "1. Open the integrations page" },
-      { type: "p", text: "Head to Integrations, search for the tool you want and open its page." },
-      { type: "h2", text: "2. Connect and authorise" },
-      { type: "p", text: "Click Connect and approve the requested permissions. You can review and revoke access at any time." },
-      { type: "h2", text: "3. Try a starter prompt" },
-      { type: "code", text: "/brainwave summarise this thread" },
-      { type: "p", text: "That's it. Brainwave will reply right in the thread with a concise summary and action items." },
+      { type: "p", text: "If your reading lives in Zotero, Aster can work with it directly. This guide covers setup and a first useful question." },
+      { type: "h2", text: "1. Connect your library" },
+      { type: "p", text: "Open Integrations, choose Zotero and sign in. Pick the collections Aster may read; it never sees the rest." },
+      { type: "h2", text: "2. Ask across a collection" },
+      { type: "code", text: "Which papers in this collection measure effects after 12 months?" },
+      { type: "h2", text: "3. Insert citations" },
+      { type: "p", text: "In the writing view, type @ to insert a citation from the synced library in APA, Chicago or MLA." },
     ],
   },
 ];
@@ -496,61 +474,61 @@ export const blogPosts = [
 /* ------------------------------------------------------------------ */
 
 export const chatModels = [
-  { id: "brainwave-2", label: "Brainwave 2.0", description: "Best for complex tasks" },
-  { id: "brainwave-turbo", label: "Brainwave Turbo", description: "Fastest responses" },
-  { id: "brainwave-vision", label: "Brainwave Vision", description: "Images and documents" },
+  { id: "aster-2", label: "Aster 2", description: "Deep research and long documents", meta: "200k context" },
+  { id: "aster-swift", label: "Aster Swift", description: "Fast drafts and quick edits", meta: "Fastest" },
+  { id: "aster-vision", label: "Aster Vision", description: "Images, scans and screenshots", meta: "Multimodal" },
 ];
 
 export const suggestedPrompts = [
-  "Explain quantum computing like I'm five",
-  "Write a friendly follow-up email to a client",
-  "Give me 5 startup ideas in 10 seconds",
-  "Write a JavaScript debounce function",
+  "Summarise the evidence on four-day work weeks",
+  "Rewrite this intro to be half as long",
+  "Compare PostgreSQL and SQLite for a desktop app",
+  "Write a debounce function in JavaScript",
 ];
 
 export const cannedResponses = [
   {
-    keywords: ["quantum"],
-    text: "Imagine you have a magic coin. A normal coin is either **heads** or **tails**. A quantum coin can be a little bit of both at the same time, until you look at it!\n\nQuantum computers use these magic coins, called **qubits**, to try many answers at once:\n\n- Normal computers check one path at a time\n- Quantum computers explore lots of paths together\n- That makes them great at puzzles like chemistry and cryptography\n\nThey're still very young, a bit like a toddler learning to walk, but they're getting stronger every year.",
+    keywords: ["four-day", "4-day", "work week", "workweek"],
+    text: "Across the six sources in this project, the evidence is broadly positive but limited in scope:\n\n- **Wellbeing improves consistently.** Reported burnout fell in every trial that measured it [1][2].\n- **Output mostly held steady.** Four of five organisations reported unchanged or higher revenue during the trial period [1].\n- **Retention improved** in the UK pilot, with resignations down by 57% [1].\n\nTwo caveats: most participants opted in, so the results may not generalise, and few studies run longer than 12 months [3].\n\nSources: [1] Autonomy, UK pilot report, p. 23 · [2] Schor et al., 2023 · [3] OECD working paper, p. 8",
   },
   {
-    keywords: ["email", "follow-up", "follow up", "client"],
-    text: "Here's a friendly follow-up you can send:\n\n**Subject:** Quick follow-up on our chat\n\nHi Alex,\n\nThanks again for taking the time to meet last week. I really enjoyed hearing about your plans for the new launch.\n\nI've attached the proposal we discussed. Happy to jump on a quick call if anything needs tweaking.\n\nBest,\nSam\n\nWant me to make it more formal or shorter?",
+    keywords: ["rewrite", "intro", "shorter", "half"],
+    text: "Here is a version at roughly half the length (58 words, from 117):\n\n> Most teams do not lack information. They lack time to check it. Aster reads your sources, answers with citations and drafts in your voice, so the hours go into judgement instead of searching.\n\nChanges: merged the first two sentences, removed the list of file types and cut the closing question. Want a version that keeps the list?",
   },
   {
-    keywords: ["startup", "ideas", "idea"],
-    text: "Five quick startup ideas:\n\n1. **PlantPal**: AI that diagnoses sick houseplants from a photo\n2. **MeetLess**: turns recurring meetings into async video updates\n3. **ChefBot**: weekly meal plans built from what's already in your fridge\n4. **StudyBuddy**: flashcards auto-generated from lecture recordings\n5. **LocalLoop**: hyper-local marketplace for borrowing tools from neighbours\n\nWant me to sketch a business model for any of these?",
+    keywords: ["postgres", "postgresql", "sqlite", "database"],
+    text: "For a desktop app, **SQLite is usually the better default**:\n\n- **Zero setup.** It is a single file inside your app bundle, no server process to install or update.\n- **Fast for one user.** Reads are very fast and writes are fine unless many processes write at once.\n- **Easy backups.** Copy the file, or use the online backup API.\n\nChoose **PostgreSQL** if several users share data, you need row-level security, or you expect heavy concurrent writes. A common pattern is SQLite locally plus a sync service to Postgres on the server.",
   },
   {
     keywords: ["debounce", "javascript", "code", "function"],
-    text: "Here's a small, dependency-free debounce:\n\n```js\nfunction debounce(fn, delay = 300) {\n  let timer;\n  return (...args) => {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn(...args), delay);\n  };\n}\n```\n\nCall it like `const onSearch = debounce(search, 250)` and the function only runs once the user stops typing for 250ms.",
+    text: "A small, dependency-free debounce:\n\n```js\nfunction debounce(fn, delay = 300) {\n  let timer;\n  return (...args) => {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn(...args), delay);\n  };\n}\n```\n\nUse it as `const onSearch = debounce(search, 250)`. The function runs once the user has stopped typing for 250 ms.",
   },
   {
-    keywords: ["image", "generate", "draw", "picture", "illustration"],
-    text: "I'd love to! Open the **image studio** on the How to use page, describe your idea and pick a style like *Neon* or *Cinematic*.\n\nPro tip: be specific about lighting and mood, e.g. \"a friendly robot, soft rim light, purple haze\".",
+    keywords: ["image", "generate", "cover", "draw", "picture", "illustration"],
+    text: "I can do that in the image studio. Based on your project preset (**Editorial**, 16:9), I suggest this prompt:\n\n`City blocks at midday, heat haze, muted ochre and slate palette, wide framing, space for a title on the left`\n\nOpen **How it works** and scroll to the image studio to generate four variations.",
   },
   {
-    keywords: ["private", "privacy", "data", "secure", "security"],
-    text: "Great question. Brainwave keeps your data private by default:\n\n- Conversations are encrypted in transit (TLS 1.3) and at rest (AES-256)\n- Your chats are **never** used for training unless you opt in\n- You can export or delete everything at any time\n\nTeams on Enterprise also get SSO, audit logs and data residency.",
+    keywords: ["private", "privacy", "data", "secure", "security", "files", "uploaded"],
+    text: "Short version: your files stay yours.\n\n- Files and conversations are encrypted in transit (TLS 1.3) and at rest (AES-256).\n- They are **never used to train models**, on any plan.\n- Team workspaces choose EU (Frankfurt) or US (Virginia) hosting.\n- Deleting a project removes its files from our systems within 30 days.",
   },
   {
-    keywords: ["slack", "summar*"],
-    text: "Here's a summary of this week's highlights:\n\n- **#product**: v2.4 shipped on Tuesday; feedback is very positive\n- **#design**: new onboarding illustrations are ready for review\n- **#support**: response time dropped to 14 minutes on average\n\nAction items: review onboarding art (Priya) and plan the gamification beta (Marcus).",
+    keywords: ["sample size", "decide", "decided", "survey"],
+    text: "On October 29 the team agreed on **n = 1,200**, stratified by region, with a 5% oversample for the two smallest regions [1]. The pinned note also says the pilot of 80 responses should run first [2].\n\nSources: [1] Meeting notes, Oct 29 · [2] Pinned message from Ines",
   },
   {
     keywords: ["price", "pricing", "cost", "plan"],
-    text: "Brainwave has three plans:\n\n- **Basic**: free forever\n- **Premium**: $9.99/month, or $7.99/month billed annually\n- **Enterprise**: custom pricing with SSO and a dedicated manager\n\nYou can compare everything on the Pricing page.",
+    text: "Aster has three plans:\n\n- **Free**: 40 research questions and 20 images a month\n- **Pro**: $18 a month, or $15 a month billed annually\n- **Team**: $30 per seat a month, or $25 billed annually, with SSO and shared projects\n\nThe Pricing page has the full comparison.",
   },
   {
     keywords: ["hello", "hi", "hey"],
-    text: "Hey there! 👋 I'm Brainwave, your AI assistant. I can answer questions, write and edit text, explain code or help you brainstorm. What are you working on today?",
+    text: "Hello. I am Aster. I can answer questions from your sources with citations, draft and edit text, and generate images from your presets. What are you working on?",
   },
 ];
 
 export const fallbackResponses = [
-  "That's a great question! In this demo I'm running on canned answers, but the real Brainwave would dig into it right away.\n\nTry one of the suggested prompts to see what a full answer looks like.",
-  "Interesting! Here's how I'd approach it:\n\n1. Clarify the goal you want to reach\n2. Break it into small, testable steps\n3. Start with the step that unblocks the most\n\nWant me to go deeper on any of these?",
-  "I love that idea. Let me think out loud:\n\n- What's the simplest version that would still be useful?\n- Who benefits most from it?\n- What would make it delightful instead of just functional?\n\nTell me a bit more and I'll help you refine it.",
+  "This demo runs on a small set of prepared answers, so I cannot research that one properly here.\n\nTry one of the suggested prompts to see a full answer with citations.",
+  "Here is how I would approach it:\n\n1. Narrow the question to something your sources can answer\n2. Collect the three or four strongest sources\n3. Ask for a summary with citations, then for counter-evidence\n\nWant me to start with step one?",
+  "Before I answer, a clarifying question: is this for an internal note or something you will publish? The level of sourcing I suggest is different for each.",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -560,19 +538,19 @@ export const fallbackResponses = [
 export const legalUpdated = "November 1, 2026";
 
 export const privacySections = [
-  { id: "overview", title: "Overview", body: ["This Privacy Policy explains what information Brainwave collects, how we use it and the choices you have. We collect as little as possible and never sell your personal data.", "This is a demo website. The text below is illustrative placeholder content and does not constitute a legal agreement."] },
-  { id: "data-we-collect", title: "Information we collect", body: ["Account information such as your name and email address.", "Content you provide, including messages, prompts and uploaded files, which is stored encrypted.", "Basic usage data such as device type and feature usage, collected in aggregate to improve the product."] },
-  { id: "how-we-use", title: "How we use information", body: ["To provide, maintain and improve Brainwave.", "To communicate with you about your account and, if you opt in, product news.", "We never use your conversations to train models unless you explicitly opt in."] },
-  { id: "sharing", title: "Sharing", body: ["We share data only with service providers who help us operate Brainwave, under strict contractual obligations, or when required by law."] },
-  { id: "retention", title: "Retention & deletion", body: ["You can export or delete your data at any time from Settings. Deleted conversations are removed from our systems within 30 days."] },
-  { id: "contact", title: "Contact", body: ["Questions about privacy? Reach our team through the contact page and choose \"Privacy\" as the topic."] },
+  { id: "overview", title: "Overview", body: ["This Privacy Policy explains what information Aster collects, how we use it and the choices you have. We collect as little as possible and never sell personal data.", "Aster is a concept product. This text is illustrative and does not constitute a legal agreement."] },
+  { id: "data-we-collect", title: "Information we collect", body: ["Account information such as your name and email address.", "Content you provide, including messages, uploaded files and generated images, stored encrypted.", "Basic usage data such as device type and feature usage, collected in aggregate."] },
+  { id: "how-we-use", title: "How we use information", body: ["To provide, maintain and improve Aster.", "To contact you about your account and, if you opt in, product news.", "We never use your content to train models."] },
+  { id: "sharing", title: "Sharing", body: ["We share data only with processors who help us run Aster, under written contracts, or when required by law."] },
+  { id: "retention", title: "Retention and deletion", body: ["You can export or delete your data at any time from Settings. Deleted content is removed from our systems within 30 days."] },
+  { id: "contact", title: "Contact", body: ["Questions about privacy? Use the contact page and choose Privacy as the topic."] },
 ];
 
 export const termsSections = [
-  { id: "acceptance", title: "Acceptance of terms", body: ["By using Brainwave you agree to these Terms of Service. If you use Brainwave on behalf of an organisation, you agree on its behalf.", "This is a demo website. The text below is illustrative placeholder content and does not constitute a legal agreement."] },
-  { id: "accounts", title: "Your account", body: ["You are responsible for keeping your login details secure and for all activity under your account."] },
-  { id: "acceptable-use", title: "Acceptable use", body: ["Don't use Brainwave to break the law, harm others, generate malware or infringe on anyone's rights.", "We may suspend accounts that violate these rules."] },
-  { id: "content", title: "Your content", body: ["You own the content you create with Brainwave. You grant us a limited licence to process it only to provide the service."] },
-  { id: "billing", title: "Billing", body: ["Paid plans renew automatically until cancelled. You can cancel at any time and keep access until the end of the billing period."] },
-  { id: "liability", title: "Limitation of liability", body: ["Brainwave is provided \"as is\". AI output can be inaccurate; please review important information before relying on it."] },
+  { id: "acceptance", title: "Acceptance of terms", body: ["By using Aster you agree to these Terms of Service. If you use Aster for an organisation, you agree on its behalf.", "Aster is a concept product. This text is illustrative and does not constitute a legal agreement."] },
+  { id: "accounts", title: "Your account", body: ["You are responsible for keeping your login details secure and for activity under your account."] },
+  { id: "acceptable-use", title: "Acceptable use", body: ["Do not use Aster to break the law, harm others, generate malware or infringe anyone's rights.", "We may suspend accounts that break these rules."] },
+  { id: "content", title: "Your content", body: ["You own the content you upload and create. You grant us a limited licence to process it only to provide the service."] },
+  { id: "billing", title: "Billing", body: ["Paid plans renew automatically until cancelled. You keep access until the end of the billing period."] },
+  { id: "liability", title: "Limitation of liability", body: ["Aster is provided as is. AI output can be wrong; check citations before relying on important information."] },
 ];

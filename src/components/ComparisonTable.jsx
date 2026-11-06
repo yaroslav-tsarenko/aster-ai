@@ -1,57 +1,67 @@
-import { check } from "../assets";
 import { pricing, pricingComparison } from "../constants";
+import Icon from "./ui/Icon";
 
 const Cell = ({ value }) => {
-  if (value === true) return <img src={check} width={24} height={24} alt="Included" className="mx-auto" />;
-  if (value === false) return <span className="text-n-5" aria-label="Not included">—</span>;
-  return <span className="text-sm text-n-2">{value}</span>;
+  if (value === true)
+    return (
+      <span className="inline-flex text-fg" aria-label="Included">
+        <Icon name="check" size={16} />
+      </span>
+    );
+  if (value === false)
+    return (
+      <span className="text-fg-4" aria-label="Not included">
+        <Icon name="minus" size={16} className="inline" />
+      </span>
+    );
+  return <span className="text-sm text-fg-2">{value}</span>;
 };
 
 const ComparisonTable = ({ billing }) => (
   <>
-  <p className="mb-4 text-xs text-n-4 md:hidden">Swipe sideways to compare all plans →</p>
-  <div className="overflow-x-auto scrollbar-thin -mx-5 px-5 md:mx-0 md:px-0">
-    <table className="w-full min-w-[40rem] border-collapse text-left">
-      <caption className="sr-only">Plan comparison</caption>
-      <thead>
-        <tr>
-          <th scope="col" className="w-2/5 py-6 pr-4 align-bottom tagline text-n-4">Features</th>
-          {pricing.map((p, i) => {
-            const price = billing === "annual" ? p.annual : p.monthly;
-            return (
-              <th key={p.id} scope="col" className="py-6 px-4 text-center align-bottom">
-                <span className={`block h5 ${["text-color-2", "text-color-1", "text-color-3"][i]}`}>{p.title}</span>
-                <span className="block text-xs text-n-4 tabular-nums">
-                  {price === null ? "Custom" : price === 0 ? "Free" : `$${price}/mo`}
-                </span>
-              </th>
-            );
-          })}
-        </tr>
-      </thead>
-      {pricingComparison.map((group) => (
-        <tbody key={group.group}>
-          <tr>
-            <th colSpan={4} scope="colgroup" className="pt-8 pb-3 tagline text-color-1">
-              {group.group}
-            </th>
+    <p className="mb-4 text-xs text-fg-3 md:hidden">Scroll sideways to compare all plans.</p>
+    <div className="overflow-x-auto scrollbar-thin -mx-5 px-5 md:mx-0 md:px-0">
+      <table className="w-full min-w-[40rem] border-collapse text-left">
+        <caption className="sr-only">Plan comparison</caption>
+        <thead>
+          <tr className="border-b border-line-strong">
+            <th scope="col" className="w-2/5 py-5 pr-4 align-bottom t-label text-fg-4">Features</th>
+            {pricing.map((p) => {
+              const price = billing === "annual" ? p.annual : p.monthly;
+              return (
+                <th key={p.id} scope="col" className={`py-5 px-4 align-bottom ${p.popular ? "bg-surface" : ""}`}>
+                  <span className="block t-h4">{p.title}</span>
+                  <span className="block font-mono text-xs text-fg-3 tabular">
+                    {price === 0 ? "Free" : `$${price} ${p.perSeat ? "/ seat / mo" : "/ mo"}`}
+                  </span>
+                </th>
+              );
+            })}
           </tr>
-          {group.rows.map((row) => (
-            <tr key={row.label} className="border-t border-n-6 transition-colors hover:bg-n-7/50">
-              <th scope="row" className="py-4 pr-4 font-normal body-2 text-n-3">
-                {row.label}
+        </thead>
+        {pricingComparison.map((group) => (
+          <tbody key={group.group}>
+            <tr>
+              <th colSpan={4} scope="colgroup" className="pt-10 pb-3 t-label text-fg-3">
+                {group.group}
               </th>
-              {row.values.map((v, i) => (
-                <td key={i} className="py-4 px-4 text-center">
-                  <Cell value={v} />
-                </td>
-              ))}
             </tr>
-          ))}
-        </tbody>
-      ))}
-    </table>
-  </div>
+            {group.rows.map((row) => (
+              <tr key={row.label} className="border-t border-line">
+                <th scope="row" className="py-3.5 pr-4 font-normal text-sm text-fg-2">
+                  {row.label}
+                </th>
+                {row.values.map((v, i) => (
+                  <td key={i} className={`py-3.5 px-4 ${pricing[i]?.popular ? "bg-surface" : ""}`}>
+                    <Cell value={v} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        ))}
+      </table>
+    </div>
   </>
 );
 

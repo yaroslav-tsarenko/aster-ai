@@ -11,7 +11,7 @@ import { isValidEmail, wait } from "../lib/utils";
 import { pricing } from "../constants";
 
 const strengthLabels = ["Too weak", "Weak", "Okay", "Strong", "Excellent"];
-const strengthColors = ["#FF776F", "#FF776F", "#FFC876", "#7ADB78", "#79FFF7"];
+const strengthColors = ["#f07a6a", "#f07a6a", "#e6b94f", "#c6f432", "#c6f432"];
 
 const scorePassword = (pw) => {
   let score = 0;
@@ -23,7 +23,7 @@ const scorePassword = (pw) => {
 };
 
 const Signup = () => {
-  usePageMeta("Create account", "Create your free Brainwave account in seconds. No credit card required.");
+  usePageMeta("Create account", "Create a free Aster account in under a minute. No card required.");
   const { toast } = useToast();
   const [params] = useSearchParams();
   const plan = pricing.find((p) => p.slug === params.get("plan")) || pricing[0];
@@ -43,8 +43,8 @@ const Signup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const next = {};
-    if (values.name.trim().length < 2) next.name = "Please enter your name.";
-    if (!isValidEmail(values.email)) next.email = "Please enter a valid email address.";
+    if (values.name.trim().length < 2) next.name = "Enter your name.";
+    if (!isValidEmail(values.email)) next.email = "Enter a valid email address.";
     if (values.password.length < 8) next.password = "Use at least 8 characters.";
     else if (strength < 2) next.password = "Add upper-case letters, numbers or symbols.";
     if (!values.terms) next.terms = "You need to accept the terms to continue.";
@@ -58,26 +58,24 @@ const Signup = () => {
 
   if (state === "done") {
     return (
-      <AuthLayout title={`Welcome, ${values.name.split(" ")[0]}!`} subtitle="Your account is ready. Here's what you can do next.">
-        <ul className="grid gap-3 mb-8 animate-pop-in">
+      <AuthLayout title={`Welcome, ${values.name.split(" ")[0]}`} subtitle="Your account is ready. Three good first steps:">
+        <ul className="mb-8 border-t border-line animate-pop-in">
           {[
-            { icon: "chat", label: "Start your first conversation", to: "/app" },
-            { icon: "image", label: "Generate an image", to: "/how-to-use#studio" },
-            { icon: "link", label: "Connect an integration", to: "/integrations" },
+            { icon: "chat", label: "Ask your first question", to: "/app" },
+            { icon: "image", label: "Generate an image from a preset", to: "/how-to-use#studio" },
+            { icon: "link", label: "Connect Zotero, Drive or Notion", to: "/integrations" },
           ].map((s) => (
             <li key={s.label}>
-              <Link to={s.to} className="group flex items-center gap-4 p-4 rounded-xl border border-n-6 transition-colors hover:border-color-1">
-                <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-n-7 text-color-1">
-                  <Icon name={s.icon} size={18} />
-                </span>
+              <Link to={s.to} className="group flex items-center gap-4 py-4 border-b border-line transition-colors hover:text-fg">
+                <Icon name={s.icon} size={17} className="text-fg-3" />
                 <span className="flex-1 text-sm">{s.label}</span>
-                <Icon name="arrowRight" size={16} className="text-n-4 transition-transform group-hover:translate-x-1" />
+                <Icon name="arrowRight" size={15} className="text-fg-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </li>
           ))}
         </ul>
-        <Button href="/app" white className="w-full">
-          Open Brainwave
+        <Button href="/app" variant="primary" size="lg" className="w-full">
+          Open Aster
         </Button>
       </AuthLayout>
     );
@@ -86,25 +84,25 @@ const Signup = () => {
   return (
     <AuthLayout
       title="Create your account"
-      subtitle="Free forever. No credit card required."
+      subtitle="Start on the Free plan or a 14-day trial. No card required."
       footer={
         <>
           Already have an account?{" "}
-          <Link to="/login" className="text-n-1 underline transition-colors hover:text-color-1">
+          <Link to="/login" className="text-fg underline underline-offset-4 decoration-line-strong transition-colors hover:decoration-fg">
             Sign in
           </Link>
         </>
       }
     >
-      <div className="flex items-center justify-between gap-3 mb-6 p-4 rounded-xl bg-n-7 border border-n-6">
+      <div className="flex items-center justify-between gap-3 mb-6 p-4 rounded-md bg-surface border border-line">
         <div>
-          <p className="tagline text-n-4">Selected plan</p>
-          <p className="font-semibold">
+          <p className="t-label mb-1 text-fg-4">Selected plan</p>
+          <p className="text-sm font-medium">
             {plan.title}
             {seats ? ` · ${seats} seats` : ""}
           </p>
         </div>
-        <Link to="/pricing" className="text-xs font-code uppercase tracking-wider text-color-1 transition-colors hover:text-n-1">
+        <Link to="/pricing" className="text-sm text-fg-2 underline underline-offset-4 decoration-line-strong transition-colors hover:text-fg">
           Change
         </Link>
       </div>
@@ -124,11 +122,11 @@ const Signup = () => {
                   <span
                     key={i}
                     className="flex-1 h-1 rounded-full transition-colors duration-300"
-                    style={{ background: i < strength ? strengthColors[strength] : "#252134" }}
+                    style={{ background: i < strength ? strengthColors[strength] : "#26292e" }}
                   />
                 ))}
               </div>
-              <p className="text-xs" style={{ color: strengthColors[strength] }}>
+              <p className="font-mono text-2xs" style={{ color: strengthColors[strength] }}>
                 Password strength: {strengthLabels[strength]}
               </p>
             </div>
@@ -140,14 +138,14 @@ const Signup = () => {
           error={errors.terms}
           label={
             <>
-              I agree to the <Link to="/terms" className="text-n-1 underline hover:text-color-1">Terms</Link> and{" "}
-              <Link to="/privacy" className="text-n-1 underline hover:text-color-1">Privacy policy</Link>.
+              I agree to the <Link to="/terms" className="text-fg underline underline-offset-2">Terms</Link> and{" "}
+              <Link to="/privacy" className="text-fg underline underline-offset-2">Privacy policy</Link>.
             </>
           }
         />
-        <Button type="submit" white className="w-full mt-2" disabled={state === "loading"}>
+        <Button type="submit" variant="primary" size="lg" className="w-full mt-2" disabled={state === "loading"}>
           {state === "loading" && <Spinner />}
-          {state === "loading" ? "Creating account…" : "Create account"}
+          {state === "loading" ? "Creating account" : "Create account"}
         </Button>
       </form>
     </AuthLayout>
